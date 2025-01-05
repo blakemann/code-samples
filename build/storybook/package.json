@@ -1,0 +1,24 @@
+{
+  "name": "@build/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "@chromatic-com/storybook": "3.2.2",
+    "@storybook/addon-essentials": "8.4.6",
+    "@storybook/addon-interactions": "8.4.6",
+    "@storybook/blocks": "8.4.6",
+    "@storybook/manager-api": "^8.4.6",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/test": "8.4.6",
+    "@storybook/theming": "^8.4.6",
+    "@storybook/vue3": "8.4.6",
+    "@storybook/vue3-vite": "8.4.6",
+    "storybook": "8.4.6",
+    "vite": "*",
+    "vue": "*"
+  },
+  "scripts": {
+    "open": "storybook dev -p 6006",
+    "build": "storybook build"
+  }
+}

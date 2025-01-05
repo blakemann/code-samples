@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/TestHarness": ["../../build/vitest/TestHarness"],
+      "@/components": ["./src/components"],
+      "@/composables": ["./src/composables"],
+      "@/styles": ["./src/styles"],
+      "@/utilities": ["./src/utilities"]
+    }
+  }
+}

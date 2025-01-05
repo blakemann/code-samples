@@ -1,0 +1,10 @@
+{
+  "name": "@build/vitest",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "@vue/test-utils": "*",
+    "lodash-es": "*",
+    "vitest": "*"
+  }
+}

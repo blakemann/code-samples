@@ -1,0 +1,11 @@
+@use './custom-properties';
+
+#storybook-root {
+  max-width: 100%;
+  perspective: 600px;
+}
+
+.c-app,
+.docs-story {
+  background: var(--color-bg);
+}

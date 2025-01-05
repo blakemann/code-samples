@@ -1,0 +1,31 @@
+# Editor
+
+.DS_Store
+.vscode/
+.idea/
+*.iml
+
+# Node Modules
+
+**/node_modules
+
+# Tests / Coverage
+
+.coverage
+.vitest
+junit.xml
+sonarqube
+vitest.config.js.timestamp*
+
+# Build / Env
+
+.yarn
+*.local
+**/dist
+**/storybook-static
+
+# Logs
+
+*.log
+
+*storybook.log

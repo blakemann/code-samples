@@ -1,0 +1,14 @@
+@use 'sass:color';
+@use 'sass:map';
+
+:root {
+
+  // Colors
+
+  --color-text: #212121;
+  --color-bg: #e1e1e6;
+
+  // Typography
+
+  --font-family-primary: 'Outfit', sans-serif;
+}
