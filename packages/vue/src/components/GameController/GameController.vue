@@ -1,104 +1,107 @@
 <template>
-  <div
-    ref="container"
-    class="container"
-  >
-    <ControllerBody
-      class="controller-body"
-    />
-    <TouchPad
-      class="touch-pad"
-    />
-    <ShoulderButton
-      class="shoulder-button shoulder-button--left"
-      side="left"
-      @pressed="onShoulderPressed('left')"
-      @released="onShoulderReleased('left')"
-    />
-    <ShoulderButton
-      class="shoulder-button shoulder-button--right"
-      side="right"
-      @pressed="onShoulderPressed('right')"
-      @released="onShoulderReleased('right')"
-    />
-    <AnalogStick
-      v-model:angle="leftStickValue.angle"
-      v-model:force="leftStickValue.force"
-      class="analog-stick analog-stick--left"
-      @update:angle="onStickMoved('left')"
-      @update:force="onStickMoved('left')"
-      @grabbed="onStickMoved('left')"
-      @released="onStickReleased('left')"
-    />
-    <AnalogStick
-      v-model:angle="rightStickValue.angle"
-      v-model:force="rightStickValue.force"
-      class="analog-stick analog-stick--right"
-      @update:angle="onStickMoved('right')"
-      @update:force="onStickMoved('right')"
-      @grabbed="onStickMoved('right')"
-      @released="onStickReleased('right')"
-    />
-    <DirectionalButton
-      v-for="button of directionalButtons"
-      :key="button.direction"
-      :class="`directional-button directional-button--${button.direction}`"
-      :direction="button.direction"
-      @pressed="onFaceButtonPressed('left', button.direction)"
-      @released="onFaceButtonReleased('left')"
-    />
-    <ActionButton
-      v-for="button of actionButtons"
-      :key="button.key"
-      :class="`action-button action-button--${button.key}`"
-      :color="button.color"
-      :label="button.label"
-      @pressed="onFaceButtonPressed('right', button.key)"
-      @released="onFaceButtonReleased('right')"
+  <div class="game-controller">
+    <div
+      ref="container"
+      class="container"
     >
-      <component :is="button.icon" />
-    </ActionButton>
-    <MenuButton
-      side="left"
-      label="Share"
-      class="menu-button menu-button--share"
-      @pressed="onFaceButtonPressed('left', 'left')"
-      @released="onFaceButtonReleased('left')"
-    >
-      <IconShare />
-    </MenuButton>
-    <MenuButton
-      side="right"
-      label="Options"
-      class="menu-button menu-button--options"
-      @pressed="onFaceButtonPressed('right', 'options')"
-      @released="onFaceButtonReleased('right')"
-    >
-      <IconOptions />
-    </MenuButton>
-    <PlayStationButton
-      class="playstation-button"
-      @pressed="onFaceButtonPressed('center', 'ps')"
-      @released="onFaceButtonReleased('center')"
-    />
-    <MuteButton
-      class="mute-button"
-      @pressed="onFaceButtonPressed('center', null)"
-      @released="onFaceButtonReleased('center')"
-      @update:muted="onUpdateMuted"
-    />
+      <ControllerBody
+        class="controller-body"
+      />
+      <TouchPad
+        class="touch-pad"
+      />
+      <ShoulderButton
+        class="shoulder-button shoulder-button--left"
+        side="left"
+        @pressed="onShoulderPressed('left')"
+        @released="onShoulderReleased('left')"
+      />
+      <ShoulderButton
+        class="shoulder-button shoulder-button--right"
+        side="right"
+        @pressed="onShoulderPressed('right')"
+        @released="onShoulderReleased('right')"
+      />
+      <AnalogStick
+        v-model:angle="leftStickValue.angle"
+        v-model:force="leftStickValue.force"
+        class="analog-stick analog-stick--left"
+        @update:angle="onStickMoved('left')"
+        @update:force="onStickMoved('left')"
+        @grabbed="onStickGrabbed('left')"
+        @released="onStickReleased('left')"
+      />
+      <AnalogStick
+        v-model:angle="rightStickValue.angle"
+        v-model:force="rightStickValue.force"
+        class="analog-stick analog-stick--right"
+        @update:angle="onStickMoved('right')"
+        @update:force="onStickMoved('right')"
+        @grabbed="onStickGrabbed('right')"
+        @released="onStickReleased('right')"
+      />
+      <DirectionalButton
+        v-for="button of directionalButtons"
+        :key="button.direction"
+        :class="`directional-button directional-button--${button.direction}`"
+        :direction="button.direction"
+        @pressed="onFaceButtonPressed('left', button.input)"
+        @released="onFaceButtonReleased('left')"
+      />
+      <ActionButton
+        v-for="button of actionButtons"
+        :key="button.key"
+        :class="`action-button action-button--${button.key}`"
+        :color="button.color"
+        :label="button.label"
+        @pressed="onFaceButtonPressed('right', button.input)"
+        @released="onFaceButtonReleased('right')"
+      >
+        <component :is="button.icon" />
+      </ActionButton>
+      <MenuButton
+        side="left"
+        label="Share"
+        class="menu-button menu-button--share"
+        @pressed="onFaceButtonPressed('left', INPUTS.SHARE)"
+        @released="onFaceButtonReleased('left')"
+      >
+        <IconShare />
+      </MenuButton>
+      <MenuButton
+        side="right"
+        label="Options"
+        class="menu-button menu-button--options"
+        @pressed="onFaceButtonPressed('right', INPUTS.OPTIONS)"
+        @released="onFaceButtonReleased('right')"
+      >
+        <IconOptions />
+      </MenuButton>
+      <PlayStationButton
+        class="playstation-button"
+        @pressed="onFaceButtonPressed('center', INPUTS.PS)"
+        @released="onFaceButtonReleased('center')"
+      />
+      <MuteButton
+        v-model="isMuted"
+        class="mute-button"
+        @pressed="onFaceButtonPressed('center', null)"
+        @released="onFaceButtonReleased('center')"
+        @update:muted="onUpdateMuted"
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
   import { gsap } from 'gsap';
   import { ref } from 'vue';
-  import IconCircle from './assets/action-circle.svg';
-  import IconCross from './assets/action-cross.svg';
-  import IconSquare from './assets/action-square.svg';
-  import IconTriangle from './assets/action-triangle.svg';
-  import IconOptions from './assets/menu-options.svg';
-  import IconShare from './assets/menu-share.svg';
+  import IconCircle from '../../assets/action-circle.svg';
+  import IconCross from '../../assets/action-cross.svg';
+  import IconSquare from '../../assets/action-square.svg';
+  import IconTriangle from '../../assets/action-triangle.svg';
+  import IconOptions from '../../assets/menu-options.svg';
+  import IconShare from '../../assets/menu-share.svg';
   import ActionButton from '@/components/ActionButton';
   import AnalogStick from '@/components/AnalogStick';
   import ControllerBody from '@/components/ControllerBody';
@@ -108,26 +111,33 @@
   import PlayStationButton from '@/components/PlayStationButton';
   import ShoulderButton from '@/components/ShoulderButton';
   import TouchPad from '@/components/TouchPad';
+  import { INPUTS } from '@/utilities/constants';
   import { getPointAlongAngle } from '@/utilities/trigonometry';
+
+  const emit = defineEmits([
+    'input',
+    'inputDataUpdate',
+  ]);
 
   // data
 
   const container = ref(null);
   const leftStickValue = ref({ angle: 0, force: 0 });
   const rightStickValue = ref({ angle: 0, force: 0 });
+  const isMuted = ref(false);
 
   const directionalButtons = [
-    { direction: 'up' },
-    { direction: 'down' },
-    { direction: 'left' },
-    { direction: 'right' },
+    { direction: 'up', input: INPUTS.UP },
+    { direction: 'down', input: INPUTS.DOWN },
+    { direction: 'left', input: INPUTS.LEFT },
+    { direction: 'right', input: INPUTS.RIGHT },
   ];
 
   const actionButtons = [
-    { key: 'triangle', label: 'Triangle', color: 'green', icon: IconTriangle },
-    { key: 'circle', label: 'Circle', color: 'red', icon: IconCircle },
-    { key: 'cross', label: 'Cross', color: 'blue', icon: IconCross },
-    { key: 'square', label: 'Square', color: 'pink', icon: IconSquare },
+    { key: 'triangle', label: 'Triangle', color: 'green', icon: IconTriangle, input: INPUTS.TRIANGLE },
+    { key: 'circle', label: 'Circle', color: 'red', icon: IconCircle, input: INPUTS.CIRCLE },
+    { key: 'cross', label: 'Cross', color: 'blue', icon: IconCross, input: INPUTS.CROSS },
+    { key: 'square', label: 'Square', color: 'pink', icon: IconSquare, input: INPUTS.SQUARE },
   ];
 
   // methods
@@ -138,6 +148,7 @@
     const rotate = (side === 'left') ? '-0.5deg' : '0.5deg';
     gsap.set($el, { transformOrigin });
     gsap.to($el, { rotate, duration: 0.2, ease: 'power2.inOut' });
+    emit('input', (side === 'left') ? INPUTS.L1 : INPUTS.R1);
   }
 
   function onShoulderReleased(side) {
@@ -145,6 +156,15 @@
     const transformOrigin = (side === 'left') ? 'top right' : 'top left';
     gsap.set($el, { transformOrigin });
     gsap.to($el, { rotate: 0, duration: 0.2, ease: 'power2.inOut' });
+  }
+
+  function onStickGrabbed(side) {
+    if (side === 'left') {
+      emit('input', INPUTS.LEFTSTICK, formatStickData(leftStickValue.value));
+    } else if (side === 'right') {
+      emit('input', INPUTS.RIGHTSTICK, formatStickData(rightStickValue.value));
+    }
+    onStickMoved(side);
   }
 
   function onStickMoved(side) {
@@ -167,6 +187,7 @@
       duration: 0.25,
       ease: 'power1.out',
     });
+    emit('inputDataUpdate', formatStickData({ angle, force }));
   }
 
   function onStickReleased(side) {
@@ -176,7 +197,7 @@
     gsap.to($el, { rotateY: 0, x: 0, y: 0, scale: 1, duration: 0.25, ease: 'power1.inOut' });
   }
 
-  function onFaceButtonPressed(side, button) {
+  function onFaceButtonPressed(side, input) {
     const $el = container.value;
     if (side === 'left') {
       gsap.set($el, { transformOrigin: 'center right' });
@@ -188,6 +209,17 @@
       gsap.set($el, { transformOrigin: 'center center' });
       gsap.to($el, { scale: 0.99, duration: 0.15, ease: 'power1.inOut' });
     }
+    if (input) {
+      emit('input', input);
+    }
+  }
+
+  function formatStickData({ angle, force }) {
+    let shiftedAngle = angle + 90;
+    return {
+      angle: (shiftedAngle < 0) ? Math.round(180 + (180 + shiftedAngle)) : Math.round(shiftedAngle),
+      force: Math.round(force * 100),
+    };
   }
 
   function onFaceButtonReleased(side) {
@@ -203,18 +235,22 @@
   }
 
   function onUpdateMuted(value) {
-    console.log(value);
+    emit('input', value ? INPUTS.MUTE : INPUTS.UNMUTE);
   }
 </script>
 
 <style lang="scss" scoped>
-  .container {
-    position: relative;
+  .game-controller {
+    perspective: 600px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  .container {
+    position: relative;
   }
 
   .controller-body {
@@ -270,28 +306,28 @@
   }
 
   .action-button {
-    width: 5.5%;
+    width: 5.75%;
     position: absolute;
     z-index: 110;
 
     &--triangle {
       top: 11%;
-      right: 21%;
+      right: 20%;
     }
 
     &--circle {
       top: 20.5%;
-      right: 15%;
+      right: 14%;
     }
 
     &--cross {
       top: 30.75%;
-      right: 21%;
+      right: 20%;
     }
 
     &--square {
       top: 20.5%;
-      right: 27%;
+      right: 26%;
     }
   }
 

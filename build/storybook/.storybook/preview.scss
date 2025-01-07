@@ -1,8 +1,20 @@
 @use './custom-properties';
 
+html,
+body.sb-main-fullscreen,
+#storybook-root {
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 #storybook-root {
   max-width: 100%;
-  perspective: 600px;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .c-app,
