@@ -4,6 +4,11 @@ window.Storybook = true;
 
 const parameters = {
   layout: 'centered',
+  options: {
+    storySort: {
+      order: ['Introduction', 'Demos', 'Components'],
+    },
+  },
   controls: {
     matchers: {
       color: /(background|color)$/i,

@@ -12,7 +12,8 @@ body.sb-main-fullscreen,
   box-sizing: border-box;
 }
 
-#storybook-root {
+#storybook-root,
+.docs-story {
   max-width: 100%;
   font-family: 'JetBrains Mono', monospace;
 }

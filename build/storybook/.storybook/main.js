@@ -10,14 +10,15 @@ function getAbsolutePath(value) {
 
 const config = {
   stories: [
+    '../**/*.mdx',
     '../../../packages/**/*.mdx',
     '../../../packages/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/preset-scss'),
-    getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-interactions'),
+    // getAbsolutePath('@chromatic-com/storybook'),
+    // getAbsolutePath('@storybook/addon-interactions'),
   ],
   framework: {
     name: getAbsolutePath('@storybook/vue3-vite'),
