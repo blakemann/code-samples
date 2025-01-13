@@ -1,38 +1,40 @@
 <template>
-  <div class="log-item">
-    <div
-      :class="{
-        symbol: true,
-        [`symbol--${symbolData.class}`]: symbolData.class,
-      }"
-    >
-      <div :class="`background background--${symbolData.background}`">
-        <IconDirection v-if="symbolData.background === 'direction'" />
-        <IconAnalogStick v-if="symbolData.background === 'stick'" />
-      </div>
+  <div class="log-item-padding">
+    <div class="log-item">
       <div
         :class="{
-          icon: true,
-          [`icon--dark`]: !symbolData.background,
+          symbol: true,
+          [`symbol--${symbolData.class}`]: symbolData.class,
         }"
       >
-        <component
-          :is="symbolData.icon.graphic"
-          v-if="symbolData.icon.type === 'graphic'"
-        />
-        <span v-else-if="symbolData.icon.type === 'text'">
-          {{ symbolData.icon.text }}
+        <div :class="`background background--${symbolData.background}`">
+          <IconDirection v-if="symbolData.background === 'direction'" />
+          <IconAnalogStick v-if="symbolData.background === 'stick'" />
+        </div>
+        <div
+          :class="{
+            icon: true,
+            [`icon--dark`]: !symbolData.background,
+          }"
+        >
+          <component
+            :is="symbolData.icon.graphic"
+            v-if="symbolData.icon.type === 'graphic'"
+          />
+          <span v-else-if="symbolData.icon.type === 'text'">
+            {{ symbolData.icon.text }}
+          </span>
+        </div>
+      </div>
+      <div class="data">
+        <span class="message">{{ symbolData.message }}</span>
+        <span
+          v-if="dataString"
+          class="secondary-message"
+        >
+          {{ dataString }}
         </span>
       </div>
-    </div>
-    <div class="data">
-      <span class="message">{{ symbolData.message }}</span>
-      <span
-        v-if="dataString"
-        class="secondary-message"
-      >
-        {{ dataString }}
-      </span>
     </div>
   </div>
 </template>
@@ -123,6 +125,10 @@
 </script>
 
 <style lang="scss" scoped>
+  .log-item-padding {
+    padding: 2px 0;
+  }
+
   .log-item {
     background: #f1f1f1;
     border-radius: 6px;

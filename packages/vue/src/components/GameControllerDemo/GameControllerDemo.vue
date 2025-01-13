@@ -2,10 +2,9 @@
   <div class="game-controller-demo">
     <h1>Game Controller Demo</h1>
     <div class="demo-content">
-      <LogBox
-        :logs="logs"
-        class="log-box"
-      />
+      <div class="log-box">
+        <LogBox :logs="logs" />
+      </div>
       <GameController
         class="game-controller"
         @input="onInput"
@@ -51,11 +50,12 @@
 
   h1 {
     margin: 0;
-    font-size: 22px;
+    font-size: 14px;
     font-weight: 800;
     position: absolute;
     top: 24px;
     left: 24px;
+    color: #222;
   }
 
   .demo-content {

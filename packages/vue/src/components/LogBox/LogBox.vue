@@ -1,6 +1,9 @@
 <template>
-  <div class="log-box">
-    <span
+  <div
+    ref="logBox"
+    class="component-log-box"
+  >
+    <div
       v-if="logs.length === 0"
       class="empty-state"
     >
@@ -16,7 +19,7 @@
         to Start
       </h2>
       <span class="start-message-secondary">(or any other button 😉)</span>
-    </span>
+    </div>
     <h2
       v-else
       class="logs-heading"
@@ -29,19 +32,30 @@
     >
       {{ hiddenCountMessage }}
     </div>
-    <div class="log-items">
-      <LogItem
+    <TransitionGroup
+      ref="logContainer"
+      tag="div"
+      class="log-items"
+      @enter="onEnter"
+      @leave="onLeave"
+    >
+      <div
         v-for="log of visibleLogs"
         :key="log.timestamp"
-        :input="log.input"
-        :data="log.data"
-      />
-    </div>
+        class="log-item-wrapper"
+      >
+        <LogItem
+          :input="log.input"
+          :data="log.data"
+        />
+      </div>
+    </TransitionGroup>
   </div>
 </template>
 
 <script setup>
-  import { computed } from 'vue';
+  import { gsap } from 'gsap';
+  import { ref, computed } from 'vue';
   import IconCross from '../../assets/action-cross.svg';
   import LogItem from '@/components/LogItem';
 
@@ -54,7 +68,10 @@
 
   // data
 
+  const logBox = ref(null);
+  const logContainer = ref(null);
   const maxLogs = 3;
+  const logItemTransitionDuration = 0.3;
 
   // computed
 
@@ -69,10 +86,27 @@
   const visibleLogs = computed(() => {
     return props.logs.slice(-maxLogs);
   });
+
+  // methods
+
+  function onEnter(itemWrapper, onComplete) {
+    const item = itemWrapper.children[0];
+    // animate item entering
+    gsap.fromTo(itemWrapper, { height: 0 }, { height: 'auto', duration: logItemTransitionDuration, ease: 'power1.inOut' });
+    gsap.fromTo(item, { scale: 0.75, opacity: 0 }, { scale: 1, opacity: 1, duration: logItemTransitionDuration, ease: 'power1.out', onComplete });
+  }
+
+  function onLeave(itemWrapper, onComplete) {
+    const item = itemWrapper.children[0];
+    const wrapperHeight = itemWrapper.offsetHeight;
+    // animate item leaving
+    gsap.fromTo(itemWrapper, { height: wrapperHeight }, { height: 0, duration: logItemTransitionDuration, ease: 'power1.inOut' });
+    gsap.fromTo(item, { scale: 1, opacity: 1 }, { scale: 0.75, opacity: 0, duration: logItemTransitionDuration, ease: 'power1.out', onComplete });
+  }
 </script>
 
 <style lang="scss" scoped>
-  .log-box {
+  .component-log-box {
     background: #fff;
     border-radius: 6px;
     padding: 12px;
@@ -144,7 +178,12 @@
   .log-items {
     display: flex;
     flex-direction: column;
-    grid-gap: 4px;
+    //grid-gap: 4px;
     margin-top: 12px;
+    overflow: hidden;
+  }
+
+  .log-item-wrapper {
+    overflow: hidden;
   }
 </style>

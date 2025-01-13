@@ -56,10 +56,6 @@
   .root {
     width: 100%;
     line-height: 0;
-
-    &, * {
-      box-sizing: border-box;
-    }
   }
 
   .recess {
