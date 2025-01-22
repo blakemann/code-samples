@@ -1,5 +1,5 @@
 import Icon from '@fortawesome/fontawesome-free/svgs/regular/face-smile.svg';
-import ActionButton from './index';
+import ActionButton, { ActionButtonColor } from './index';
 
 export default {
   title: 'Components/ActionButton',
@@ -25,7 +25,7 @@ export const Green = {
   render,
   args: {
     label: 'Example',
-    color: 'green',
+    color: ActionButtonColor.Green,
   },
 };
 
@@ -33,7 +33,7 @@ export const Red = {
   render,
   args: {
     label: 'Example',
-    color: 'red',
+    color: ActionButtonColor.Red,
   },
 };
 
@@ -41,7 +41,7 @@ export const Blue = {
   render,
   args: {
     label: 'Example',
-    color: 'blue',
+    color: ActionButtonColor.Blue,
   },
 };
 
@@ -49,6 +49,6 @@ export const Pink = {
   render,
   args: {
     label: 'Example',
-    color: 'pink',
+    color: ActionButtonColor.Pink,
   },
 };

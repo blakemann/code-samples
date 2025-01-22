@@ -1,13 +1,13 @@
 <template>
-  <ControllerGraphic class="graphic" />
+  <ControllerGraphic class="c-controller-body" />
 </template>
 
-<script setup>
+<script setup lang="ts">
   import ControllerGraphic from './assets/controller.svg';
 </script>
 
 <style lang="scss" scoped>
-  .graphic {
+  .c-controller-body {
     width: 100%;
   }
 </style>

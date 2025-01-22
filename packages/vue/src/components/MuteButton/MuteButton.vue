@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="c-mute-button">
     <div class="recess">
       <button
         type="button"
@@ -15,35 +15,44 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts">
   import { ref } from 'vue';
   import { useGlobalRelease } from '@/composables';
 
-  const muted = defineModel('muted', {
-    type: Boolean,
+  export enum ComponentEvent {
+    Pressed = 'pressed',
+    Released = 'released',
+  }
+</script>
+
+<script setup lang="ts">
+  // defines
+
+  const muted = defineModel<boolean>('muted', {
     default: false,
   });
 
-  const emit = defineEmits([
-    'pressed',
-    'released',
-  ]);
+  const emit = defineEmits(Object.values(ComponentEvent));
 
   // data
 
-  const isDown = ref(false);
+  const isDown = ref<boolean>(false);
 
   // methods
 
-  function onMouseDown() {
+  function onMouseDown():void {
+    // update internal state
     isDown.value = true;
-    emit('pressed');
+    // emit event
+    emit(ComponentEvent.Pressed);
   }
 
   function onRelease() {
+    // update internal state
     isDown.value = false;
     muted.value = !muted.value;
-    emit('released');
+    // emit event
+    emit(ComponentEvent.Released);
   }
 
   useGlobalRelease(isDown, onRelease);
@@ -53,7 +62,7 @@
   @use 'sass:color';
   @use '@/styles/core' as *;
 
-  .root {
+  .c-mute-button {
     width: 100%;
     line-height: 0;
   }

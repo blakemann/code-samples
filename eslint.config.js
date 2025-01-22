@@ -1,13 +1,24 @@
 import js from '@eslint/js';
 import stylisticJs from '@stylistic/eslint-plugin-js';
 import vitest from '@vitest/eslint-plugin';
+import { defineConfigWithVueTs, configureVueProject, vueTsConfigs } from '@vue/eslint-config-typescript';
 import importPlugin from 'eslint-plugin-import';
 import jsdoc from 'eslint-plugin-jsdoc';
 import storybook from 'eslint-plugin-storybook';
 import vue from 'eslint-plugin-vue';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-export default [
+configureVueProject({
+  scriptLangs: [
+    'ts',
+    'js',
+  ],
+});
+
+export default defineConfigWithVueTs(
+  vue.configs['flat/essential'],
+  vueTsConfigs.base,
   {
     ignores: [
       '_templates/*',
@@ -47,7 +58,10 @@ export default [
   },
   // Custom
   {
-    files: ['**/*.{js,mjs,cjs,vue}'],
+    files: ['**/*.{js,ts,mjs,cjs,vue}'],
+    plugins: {
+      '@typescript': tseslint.plugin,
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -73,9 +87,10 @@ export default [
       'no-mixed-operators': 'off',
       'no-param-reassign': 'off',
       'no-plusplus': 'off',
+      'no-undef': 'off',
       'no-underscore-dangle': 'off',
       'no-unreachable': 'error',
-      'no-unused-vars': 'error',
+      'no-unused-vars': 'off',
       'no-use-before-define': ['error', {
         functions: false,
         classes: true,
@@ -106,6 +121,8 @@ export default [
       '@stylistic/js/multiline-comment-style': 'off',
       '@stylistic/js/array-bracket-newline': 'off',
       '@stylistic/js/newline-per-chained-call': 'off',
+      // Typescript
+      '@typescript/no-unused-vars': ['error'],
       // Vue plugin rules
       'vue/attributes-order': ['error'],
       'vue/component-name-in-template-casing': ['error', 'PascalCase'],
@@ -146,9 +163,12 @@ export default [
         ignore: ['update:modelValue'],
       }],
       // Import plugin rules
-      'import/extensions': ['error', 'ignorePackages', {
+      'import/extensions': ['error', {
         js: 'never',
+        ts: 'never',
         vue: 'always',
+        json: 'always',
+        svg: 'always',
       }],
       'import/no-extraneous-dependencies': [
         'error', { devDependencies: true },
@@ -172,4 +192,4 @@ export default [
       '@stylistic/js/indent': 'off',
     },
   },
-];
+);

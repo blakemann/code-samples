@@ -9,7 +9,7 @@ Live demos of the code are available through Storybook, which can be viewed here
 
 [https://code.blakemann.com](https://code.blakemann.com)
 
-You can view all of the components used in the project in isolation using the navigation sidebar within this Storybook. Full example demos are visible under the '**Demos**' category, and the individual components that make up the demo can be found under '**Components**'.
+You can view all the components used in the project in isolation using the navigation sidebar within this Storybook. Full example demos are visible under the '**Demos**' category, and the individual components that make up the demo can be found under '**Components**'.
 
 ---
 

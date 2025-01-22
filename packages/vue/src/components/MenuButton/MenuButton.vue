@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="c-menu-button">
     <div class="icon">
       <slot />
     </div>
@@ -23,53 +23,62 @@
   </div>
 </template>
 
-<script setup>
-  import { gsap } from 'gsap';
+<script lang="ts">
   import { ref } from 'vue';
   import { useGlobalRelease } from '@/composables';
 
-  defineProps({
-    label: {
-      type: String,
-      required: true,
-    },
-    side: {
-      type: String,
-      validator(value) {
-        return ['left', 'right'].includes(value);
-      },
-      default: 'left',
-    },
-  });
+  export enum ButtonSide {
+    Left = 'left',
+    Right = 'right',
+  }
 
-  const emit = defineEmits([
-    'pressed',
-    'released',
-  ]);
+  enum ComponentEvent {
+    Pressed = 'pressed',
+    Released = 'released',
+  }
+
+  interface Props {
+    label: string,
+    side: ButtonSide,
+  }
+</script>
+
+<script setup lang="ts">
+  // defines
+
+  const { side = ButtonSide.Left } = defineProps<Props>();
+
+  const emit = defineEmits(Object.values(ComponentEvent));
 
   // data
 
-  const isDown = ref(false);
-  const recessLit = ref(false);
+  const isDown = ref<boolean>(false);
+  const recessLit = ref<boolean>(false);
   let lightingTimeout = null;
 
   // methods
 
-  function onMouseDown() {
+  function onMouseDown():void {
+    // update internal state
     isDown.value = true;
-    emit('pressed');
     recessLit.value = true;
+    // emit event
+    emit(ComponentEvent.Pressed);
+    // clear existing timeout if applicable
     if (lightingTimeout) {
       clearTimeout(lightingTimeout);
     }
-    lightingTimeout = setTimeout(() => {
+    // set timeout to turn off recess lighting
+    lightingTimeout = setTimeout(():void => {
       recessLit.value = false;
     }, 250);
   }
 
-  function onRelease() {
+  function onRelease():void {
+    // update internal state
     isDown.value = false;
-    emit('released');
+    // emit event
+    emit(ComponentEvent.Released);
   }
 
   useGlobalRelease(isDown, onRelease);
@@ -78,7 +87,7 @@
 <style lang="scss" scoped>
   @use '@/styles/core' as *;
 
-  .root {
+  .c-menu-button {
     width: 100%;
     line-height: 0;
   }

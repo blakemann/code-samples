@@ -1,5 +1,5 @@
 <template>
-  <div class="game-controller">
+  <div class="c-game-controller">
     <div
       ref="container"
       class="container"
@@ -12,41 +12,41 @@
       />
       <ShoulderButton
         class="shoulder-button shoulder-button--left"
-        side="left"
-        @pressed="onShoulderPressed('left')"
-        @released="onShoulderReleased('left')"
+        :side="ShoulderButtonSide.Left"
+        @pressed="onShoulderPressed(ControllerSide.Left)"
+        @released="onShoulderReleased(ControllerSide.Left)"
       />
       <ShoulderButton
         class="shoulder-button shoulder-button--right"
-        side="right"
-        @pressed="onShoulderPressed('right')"
-        @released="onShoulderReleased('right')"
+        :side="ShoulderButtonSide.Right"
+        @pressed="onShoulderPressed(ControllerSide.Right)"
+        @released="onShoulderReleased(ControllerSide.Right)"
       />
       <AnalogStick
         v-model:angle="leftStickValue.angle"
         v-model:force="leftStickValue.force"
         class="analog-stick analog-stick--left"
-        @update:angle="onStickMoved('left')"
-        @update:force="onStickMoved('left')"
-        @grabbed="onStickGrabbed('left')"
-        @released="onStickReleased('left')"
+        @update:angle="onStickMoved(ControllerSide.Left)"
+        @update:force="onStickMoved(ControllerSide.Left)"
+        @grabbed="onStickGrabbed(ControllerSide.Left)"
+        @released="onStickReleased(ControllerSide.Left)"
       />
       <AnalogStick
         v-model:angle="rightStickValue.angle"
         v-model:force="rightStickValue.force"
         class="analog-stick analog-stick--right"
-        @update:angle="onStickMoved('right')"
-        @update:force="onStickMoved('right')"
-        @grabbed="onStickGrabbed('right')"
-        @released="onStickReleased('right')"
+        @update:angle="onStickMoved(ControllerSide.Right)"
+        @update:force="onStickMoved(ControllerSide.Right)"
+        @grabbed="onStickGrabbed(ControllerSide.Right)"
+        @released="onStickReleased(ControllerSide.Right)"
       />
       <DirectionalButton
         v-for="button of directionalButtons"
         :key="button.direction"
         :class="`directional-button directional-button--${button.direction}`"
         :direction="button.direction"
-        @pressed="onFaceButtonPressed('left', button.input)"
-        @released="onFaceButtonReleased('left')"
+        @pressed="onFaceButtonPressed(ControllerSide.Left, button.input)"
+        @released="onFaceButtonReleased(ControllerSide.Left)"
       />
       <ActionButton
         v-for="button of actionButtons"
@@ -54,131 +54,167 @@
         :class="`action-button action-button--${button.key}`"
         :color="button.color"
         :label="button.label"
-        @pressed="onFaceButtonPressed('right', button.input)"
-        @released="onFaceButtonReleased('right')"
+        @pressed="onFaceButtonPressed(ControllerSide.Right, button.input)"
+        @released="onFaceButtonReleased(ControllerSide.Right)"
       >
         <component :is="button.icon" />
       </ActionButton>
       <MenuButton
-        side="left"
+        :side="MenuButtonSide.Left"
         label="Share"
         class="menu-button menu-button--share"
-        @pressed="onFaceButtonPressed('left', INPUTS.SHARE)"
-        @released="onFaceButtonReleased('left')"
+        @pressed="onFaceButtonPressed(ControllerSide.Left, Input.SHARE)"
+        @released="onFaceButtonReleased(ControllerSide.Left)"
       >
         <IconShare />
       </MenuButton>
       <MenuButton
-        side="right"
+        :side="MenuButtonSide.Right"
         label="Options"
         class="menu-button menu-button--options"
-        @pressed="onFaceButtonPressed('right', INPUTS.OPTIONS)"
-        @released="onFaceButtonReleased('right')"
+        @pressed="onFaceButtonPressed(ControllerSide.Right, Input.OPTIONS)"
+        @released="onFaceButtonReleased(ControllerSide.Right)"
       >
         <IconOptions />
       </MenuButton>
       <PlayStationButton
         class="playstation-button"
-        @pressed="onFaceButtonPressed('center', INPUTS.PS)"
-        @released="onFaceButtonReleased('center')"
+        @pressed="onFaceButtonPressed(ControllerSide.Center, Input.PS)"
+        @released="onFaceButtonReleased(ControllerSide.Center)"
       />
       <MuteButton
         v-model="isMuted"
         class="mute-button"
-        @pressed="onFaceButtonPressed('center', null)"
-        @released="onFaceButtonReleased('center')"
+        @pressed="onFaceButtonPressed(ControllerSide.Center, null)"
+        @released="onFaceButtonReleased(ControllerSide.Center)"
         @update:muted="onUpdateMuted"
       />
     </div>
   </div>
 </template>
 
-<script setup>
+<script lang="ts">
   import { gsap } from 'gsap';
-  import { ref } from 'vue';
-  import IconCircle from '../../assets/action-circle.svg';
-  import IconCross from '../../assets/action-cross.svg';
-  import IconSquare from '../../assets/action-square.svg';
-  import IconTriangle from '../../assets/action-triangle.svg';
-  import IconOptions from '../../assets/menu-options.svg';
-  import IconShare from '../../assets/menu-share.svg';
-  import ActionButton from '@/components/ActionButton';
+  import { ref, useTemplateRef } from 'vue';
+  import type { Coord } from '@/utilities/trigonometry';
+  import ActionButton, { ActionButtonColor } from '@/components/ActionButton';
+  import DirectionalButton, { DirectionalButtonDirection } from '@/components/DirectionalButton';
+  import { Input } from '@/utilities/constants';
+  import IconCircle from '@/assets/action-circle.svg';
+  import IconCross from '@/assets/action-cross.svg';
+  import IconSquare from '@/assets/action-square.svg';
+  import IconTriangle from '@/assets/action-triangle.svg';
+  import IconOptions from '@/assets/menu-options.svg';
+  import IconShare from '@/assets/menu-share.svg';
   import AnalogStick from '@/components/AnalogStick';
   import ControllerBody from '@/components/ControllerBody';
-  import DirectionalButton from '@/components/DirectionalButton';
-  import MenuButton from '@/components/MenuButton';
+  import MenuButton, { MenuButtonSide } from '@/components/MenuButton';
   import MuteButton from '@/components/MuteButton';
   import PlayStationButton from '@/components/PlayStationButton';
-  import ShoulderButton from '@/components/ShoulderButton';
+  import ShoulderButton, { ShoulderButtonSide } from '@/components/ShoulderButton';
   import TouchPad from '@/components/TouchPad';
-  import { INPUTS } from '@/utilities/constants';
   import { getPointAlongAngle } from '@/utilities/trigonometry';
 
-  const emit = defineEmits([
-    'input',
-    'inputDataUpdate',
-  ]);
+  export enum ComponentEvent {
+    Input = 'input',
+    InputDataUpdate = 'InputDataUpdate',
+  }
+
+  enum ControllerSide {
+    Left,
+    Center,
+    Right,
+  }
+
+  type StickInput = {
+    angle: number,
+    force: number,
+  };
+
+  type DirectionalButtonData = {
+    direction: DirectionalButtonDirection,
+    input: Input,
+  }
+
+  type ActionButtonData = {
+    key: string,
+    label: string,
+    color: ActionButtonColor,
+    icon: string,
+    input: Input,
+  }
+</script>
+
+<script setup lang="ts">
+  // defines
+
+  const emit:Function = defineEmits(Object.values(ComponentEvent));
 
   // data
 
-  const container = ref(null);
-  const leftStickValue = ref({ angle: 0, force: 0 });
-  const rightStickValue = ref({ angle: 0, force: 0 });
-  const isMuted = ref(false);
+  const container = useTemplateRef<HTMLDivElement>('container');
+  const leftStickValue = ref<StickInput>({ angle: 0, force: 0 });
+  const rightStickValue = ref<StickInput>({ angle: 0, force: 0 });
+  const isMuted = ref<boolean>(false);
 
-  const directionalButtons = [
-    { direction: 'up', input: INPUTS.UP },
-    { direction: 'down', input: INPUTS.DOWN },
-    { direction: 'left', input: INPUTS.LEFT },
-    { direction: 'right', input: INPUTS.RIGHT },
+  const directionalButtons:Array<DirectionalButtonData> = [
+    { direction: DirectionalButtonDirection.Up, input: Input.UP },
+    { direction: DirectionalButtonDirection.Down, input: Input.DOWN },
+    { direction: DirectionalButtonDirection.Left, input: Input.LEFT },
+    { direction: DirectionalButtonDirection.Right, input: Input.RIGHT },
   ];
 
-  const actionButtons = [
-    { key: 'triangle', label: 'Triangle', color: 'green', icon: IconTriangle, input: INPUTS.TRIANGLE },
-    { key: 'circle', label: 'Circle', color: 'red', icon: IconCircle, input: INPUTS.CIRCLE },
-    { key: 'cross', label: 'Cross', color: 'blue', icon: IconCross, input: INPUTS.CROSS },
-    { key: 'square', label: 'Square', color: 'pink', icon: IconSquare, input: INPUTS.SQUARE },
+  const actionButtons:Array<ActionButtonData> = [
+    { key: 'triangle', label: 'Triangle', color: ActionButtonColor.Green, icon: IconTriangle, input: Input.TRIANGLE },
+    { key: 'circle', label: 'Circle', color: ActionButtonColor.Red, icon: IconCircle, input: Input.CIRCLE },
+    { key: 'cross', label: 'Cross', color: ActionButtonColor.Blue, icon: IconCross, input: Input.CROSS },
+    { key: 'square', label: 'Square', color: ActionButtonColor.Pink, icon: IconSquare, input: Input.SQUARE },
   ];
 
   // methods
 
-  function onShoulderPressed(side) {
-    const $el = container.value;
-    const transformOrigin = (side === 'left') ? 'top right' : 'top left';
-    const rotate = (side === 'left') ? '-0.5deg' : '0.5deg';
-    gsap.set($el, { transformOrigin });
-    gsap.to($el, { rotate, duration: 0.2, ease: 'power2.inOut' });
-    emit('input', (side === 'left') ? INPUTS.L1 : INPUTS.R1);
+  function onShoulderPressed(side:ControllerSide):void {
+    // animate push in
+    const transformOrigin:string = (side === ControllerSide.Left) ? 'top right' : 'top left';
+    const rotate:string = (side === ControllerSide.Left) ? '-0.5deg' : '0.5deg';
+    gsap.set(container.value, { transformOrigin });
+    gsap.to(container.value, { rotate, duration: 0.2, ease: 'power2.inOut' });
+    // emit input event
+    emit(ComponentEvent.Input, (side === ControllerSide.Left) ? Input.L1 : Input.R1);
   }
 
-  function onShoulderReleased(side) {
-    const $el = container.value;
-    const transformOrigin = (side === 'left') ? 'top right' : 'top left';
-    gsap.set($el, { transformOrigin });
-    gsap.to($el, { rotate: 0, duration: 0.2, ease: 'power2.inOut' });
+  function onShoulderReleased(side:ControllerSide):void {
+    // animate back to default state
+    const transformOrigin:string = (side === ControllerSide.Left) ? 'top right' : 'top left';
+    gsap.set(container.value, { transformOrigin });
+    gsap.to(container.value, { rotate: 0, duration: 0.2, ease: 'power2.inOut' });
   }
 
-  function onStickGrabbed(side) {
-    if (side === 'left') {
-      emit('input', INPUTS.LEFTSTICK, formatStickData(leftStickValue.value));
-    } else if (side === 'right') {
-      emit('input', INPUTS.RIGHTSTICK, formatStickData(rightStickValue.value));
+  function onStickGrabbed(side:ControllerSide):void {
+    // emit input event for appropriate stick
+    if (side === ControllerSide.Left) {
+      emit(ComponentEvent.Input, Input.LEFTSTICK, formatStickData(leftStickValue.value));
+    } else if (side === ControllerSide.Right) {
+      emit(ComponentEvent.Input, Input.RIGHTSTICK, formatStickData(rightStickValue.value));
     }
+    // trigger initial move state
     onStickMoved(side);
   }
 
-  function onStickMoved(side) {
-    const $el = container.value;
-    const transformOrigin = (side === 'left') ? 'center right' : 'center left';
-    const maxTranslation = 0.75;
-    const maxRotation = 0.4;
-    const { angle, force } = (side === 'left') ? leftStickValue.value : rightStickValue.value;
-    const translation = getPointAlongAngle(0, 0, angle, maxTranslation * force);
-    const rotation = getPointAlongAngle(0, 0, angle, maxRotation * force);
-    const rotationBoost = (side === 'left') ? 2 : -2;
-    gsap.killTweensOf($el);
-    gsap.set($el, { transformOrigin });
-    gsap.to($el, {
+  function onStickMoved(side:ControllerSide):void {
+    // calculate position values based on stick input for current side
+    const transformOrigin:string = (side === ControllerSide.Left) ? 'center right' : 'center left';
+    const maxTranslation:number = 0.75;
+    const maxRotation:number = 0.4;
+    const { angle, force }:StickInput = (side === ControllerSide.Left) ? leftStickValue.value : rightStickValue.value;
+    const translation:Coord = getPointAlongAngle(0, 0, angle, maxTranslation * force);
+    const rotation:Coord = getPointAlongAngle(0, 0, angle, maxRotation * force);
+    const rotationBoost:number = (side === ControllerSide.Left) ? 2 : -2;
+    // kill existing animations before starting a new one
+    gsap.killTweensOf(container.value);
+    // animate container to new position
+    gsap.set(container.value, { transformOrigin });
+    gsap.to(container.value, {
       scale: 0.975,
       x: `${translation.x}%`,
       y: `${translation.y}%`,
@@ -187,60 +223,63 @@
       duration: 0.25,
       ease: 'power1.out',
     });
-    emit('inputDataUpdate', formatStickData({ angle, force }));
+    // emit data update event
+    emit(ComponentEvent.InputDataUpdate, formatStickData({ angle, force }));
   }
 
-  function onStickReleased(side) {
-    const $el = container.value;
-    const transformOrigin = (side === 'left') ? 'center right' : 'center left';
-    gsap.set($el, { transformOrigin });
-    gsap.to($el, { rotateY: 0, x: 0, y: 0, scale: 1, duration: 0.25, ease: 'power1.inOut' });
+  function onStickReleased(side:ControllerSide):void {
+    // animate back to default state
+    const transformOrigin:string = (side === ControllerSide.Left) ? 'center right' : 'center left';
+    gsap.set(container.value, { transformOrigin });
+    gsap.to(container.value, { rotateY: 0, x: 0, y: 0, scale: 1, duration: 0.25, ease: 'power1.inOut' });
   }
 
-  function onFaceButtonPressed(side, input) {
-    const $el = container.value;
-    if (side === 'left') {
-      gsap.set($el, { transformOrigin: 'center right' });
-      gsap.to($el, { rotateY: -0.6, x: '0.3%', y: 0, scale: 1, duration: 0.15, ease: 'power1.inOut' });
-    } else if (side === 'right') {
-      gsap.set($el, { transformOrigin: 'center left' });
-      gsap.to($el, { rotateY: 0.6, x: '-0.3%', y: 0, scale: 1, duration: 0.15, ease: 'power1.inOut' });
+  function onFaceButtonPressed(side:ControllerSide, input:Input|null):void {
+    // animate push in on specified side
+    if (side === ControllerSide.Left) {
+      gsap.set(container.value, { transformOrigin: 'center right' });
+      gsap.to(container.value, { rotateY: -0.6, x: '0.3%', y: 0, scale: 1, duration: 0.15, ease: 'power1.inOut' });
+    } else if (side === ControllerSide.Right) {
+      gsap.set(container.value, { transformOrigin: 'center left' });
+      gsap.to(container.value, { rotateY: 0.6, x: '-0.3%', y: 0, scale: 1, duration: 0.15, ease: 'power1.inOut' });
     } else {
-      gsap.set($el, { transformOrigin: 'center center' });
-      gsap.to($el, { scale: 0.99, duration: 0.15, ease: 'power1.inOut' });
+      gsap.set(container.value, { transformOrigin: 'center center' });
+      gsap.to(container.value, { scale: 0.99, duration: 0.15, ease: 'power1.inOut' });
     }
+    // emit input event if applicable
     if (input) {
-      emit('input', input);
+      emit(ComponentEvent.Input, input);
     }
   }
 
-  function formatStickData({ angle, force }) {
-    let shiftedAngle = angle + 90;
+  function formatStickData({ angle, force }:StickInput):StickInput {
+    // return stick input data adjusted for display requirements
+    let shiftedAngle:number = angle + 90;
     return {
       angle: (shiftedAngle < 0) ? Math.round(180 + (180 + shiftedAngle)) : Math.round(shiftedAngle),
       force: Math.round(force * 100),
     };
   }
 
-  function onFaceButtonReleased(side) {
-    const $el = container.value;
-    if (side === 'left') {
-      gsap.set($el, { transformOrigin: 'center right' });
-    } else if (side === 'right') {
-      gsap.set($el, { transformOrigin: 'center left' });
+  function onFaceButtonReleased(side:ControllerSide):void {
+    // animate back to initial state
+    if (side === ControllerSide.Left) {
+      gsap.set(container.value, { transformOrigin: 'center right' });
+    } else if (side === ControllerSide.Right) {
+      gsap.set(container.value, { transformOrigin: 'center left' });
     } else {
-      gsap.set($el, { transformOrigin: 'center center' });
+      gsap.set(container.value, { transformOrigin: 'center center' });
     }
-    gsap.to($el, { rotateY: 0, x: 0, y: 0, scale: 1, duration: 0.15, ease: 'power1.inOut' });
+    gsap.to(container.value, { rotateY: 0, x: 0, y: 0, scale: 1, duration: 0.15, ease: 'power1.inOut' });
   }
 
-  function onUpdateMuted(value) {
-    emit('input', value ? INPUTS.MUTE : INPUTS.UNMUTE);
+  function onUpdateMuted(value:Input):void {
+    emit(ComponentEvent.Input, value ? Input.MUTE : Input.UNMUTE);
   }
 </script>
 
 <style lang="scss" scoped>
-  .game-controller {
+  .c-game-controller {
     perspective: 600px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;

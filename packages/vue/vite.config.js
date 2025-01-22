@@ -2,11 +2,11 @@ import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import svgLoader from 'vite-svg-loader';
-import jsconfig from './jsconfig.json';
+import tsconfig from '../../tsconfig.json';
 
-const aliases = Object.entries(jsconfig.compilerOptions.paths).map(([alias, [aliasPath]]) => ({
+const aliases = Object.entries(tsconfig.compilerOptions.paths).map(([alias, [aliasPath]]) => ({
   find: new RegExp(alias.replace('/*', '/(.*)')),
-  replacement: path.resolve(import.meta.dirname, aliasPath.replace('/*', '/$1')),
+  replacement: path.resolve(import.meta.dirname, aliasPath.replace('./packages/vue/', './').replace('/*', '/$1')),
 }));
 
 export default defineConfig({

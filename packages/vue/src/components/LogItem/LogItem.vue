@@ -1,6 +1,6 @@
 <template>
-  <div class="log-item-padding">
-    <div class="log-item">
+  <div class="c-log-item">
+    <div class="content-wrapper">
       <div
         :class="{
           symbol: true,
@@ -39,81 +39,97 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts">
   import IconMute from '@fortawesome/fontawesome-free/svgs/solid/microphone-slash.svg';
   import IconUnmute from '@fortawesome/fontawesome-free/svgs/solid/microphone.svg';
   import { computed } from 'vue';
-  import IconCircle from '../../assets/action-circle.svg';
-  import IconCross from '../../assets/action-cross.svg';
-  import IconSquare from '../../assets/action-square.svg';
-  import IconTriangle from '../../assets/action-triangle.svg';
-  import IconOptions from '../../assets/menu-options.svg';
-  import IconShare from '../../assets/menu-share.svg';
   import IconAnalogStick from './assets/analog-stick.svg';
   import IconDirection from './assets/direction-button.svg';
   import IconPS from './assets/ps-button.svg';
-  import { INPUTS } from '@/utilities/constants';
+  import IconCircle from '@/assets/action-circle.svg';
+  import IconCross from '@/assets/action-cross.svg';
+  import IconSquare from '@/assets/action-square.svg';
+  import IconTriangle from '@/assets/action-triangle.svg';
+  import IconOptions from '@/assets/menu-options.svg';
+  import IconShare from '@/assets/menu-share.svg';
+  import { Input } from '@/utilities/constants';
 
-  const props = defineProps({
-    input: {
-      type: String,
-      validator(value) {
-        return Object.values(INPUTS).includes(value);
-      },
-      required: true,
-    },
-    data: {
-      type: Object,
-      default: null,
-    },
-  });
+  export type LogItemData = {
+    angle: number,
+    force: number
+  }
 
-  const symbolData = computed(() => {
+  type SymbolData = {
+    background: string|null,
+    icon: {
+      type: string|null,
+      text?: string,
+      graphic?: string,
+    }
+    message: string,
+    class?: string,
+  }
+
+  interface Props {
+    input: Input,
+    data?: LogItemData|null,
+  }
+</script>
+
+<script setup lang="ts">
+  // defines
+
+  const props = defineProps<Props>();
+
+  // computed
+
+  const symbolData = computed<SymbolData>(() => {
     switch (props.input) {
-      case INPUTS.L1:
+      case Input.L1:
         return { background: 'shoulder', icon: { type: 'text', text: 'L1' }, message: '\'L1\' Pressed' };
-      case INPUTS.R1:
+      case Input.R1:
         return { background: 'shoulder', icon: { type: 'text', text: 'R1' }, message: '\'R1\' Pressed' };
-      case INPUTS.TRIANGLE:
+      case Input.TRIANGLE:
         return { background: 'action', icon: { type: 'graphic', graphic: IconTriangle }, class: 'green', message: '\'Triangle\' Pressed' };
-      case INPUTS.CIRCLE:
+      case Input.CIRCLE:
         return { background: 'action', icon: { type: 'graphic', graphic: IconCircle }, class: 'red', message: '\'Circle\' Pressed' };
-      case INPUTS.CROSS:
+      case Input.CROSS:
         return { background: 'action', icon: { type: 'graphic', graphic: IconCross }, class: 'blue', message: '\'X\' Pressed' };
-      case INPUTS.SQUARE:
+      case Input.SQUARE:
         return { background: 'action', icon: { type: 'graphic', graphic: IconSquare }, class: 'pink', message: '\'Square\' Pressed' };
-      case INPUTS.UP:
+      case Input.UP:
         return { background: 'direction', icon: { type: null }, class: 'up', message: '\'Up\' Pressed' };
-      case INPUTS.DOWN:
+      case Input.DOWN:
         return { background: 'direction', icon: { type: null }, class: 'down', message: '\'Down\' Pressed' };
-      case INPUTS.LEFT:
+      case Input.LEFT:
         return { background: 'direction', icon: { type: null }, class: 'left', message: '\'Left\' Pressed' };
-      case INPUTS.RIGHT:
+      case Input.RIGHT:
         return { background: 'direction', icon: { type: null }, class: 'right', message: '\'Right\' Pressed' };
-      case INPUTS.LEFTSTICK:
+      case Input.LEFTSTICK:
         return { background: 'stick', icon: { type: 'text', text: 'L' }, message: 'Left Stick' };
-      case INPUTS.RIGHTSTICK:
+      case Input.RIGHTSTICK:
         return { background: 'stick', icon: { type: 'text', text: 'R' }, message: 'Right Stick' };
-      case INPUTS.SHARE:
+      case Input.SHARE:
         return { background: null, icon: { type: 'graphic', graphic: IconShare }, message: '\'Share\' Pressed' };
-      case INPUTS.OPTIONS:
+      case Input.OPTIONS:
         return { background: null, icon: { type: 'graphic', graphic: IconOptions }, message: '\'Options\' Pressed' };
-      case INPUTS.MUTE:
+      case Input.MUTE:
         return { background: null, icon: { type: 'graphic', graphic: IconMute }, class: 'mute', message: 'Microphone Muted' };
-      case INPUTS.UNMUTE:
+      case Input.UNMUTE:
         return { background: null, icon: { type: 'graphic', graphic: IconUnmute }, message: 'Microphone Unmuted' };
-      case INPUTS.PS:
+      case Input.PS:
         return { background: null, icon: { type: 'graphic', graphic: IconPS }, message: '\'PS Button\' Pressed' };
       default:
         return { background: null, icon: { type: 'text', text: 'unknown' }, message: 'Unknown Input' };
     }
   });
 
-  const dataString = computed(() => {
+  const dataString = computed<string>(() => {
     if (!props.data) {
       return null;
     }
-    const values = [];
+    // format data values into string representations
+    const values:Array<string> = [];
     if (props.data.angle !== undefined) {
       values.push(`${props.data.angle}°`);
     }
@@ -125,11 +141,11 @@
 </script>
 
 <style lang="scss" scoped>
-  .log-item-padding {
+  .c-log-item {
     padding: 2px 0;
   }
 
-  .log-item {
+  .content-wrapper {
     background: #f1f1f1;
     border-radius: 6px;
     padding: 8px 12px;

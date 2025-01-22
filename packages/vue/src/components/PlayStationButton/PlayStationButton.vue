@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="c-playstation-button">
     <div
       :class="{
         recess: true,
@@ -47,28 +47,53 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts">
   import { gsap } from 'gsap';
   import { uniqueId } from 'lodash-es';
-  import { ref } from 'vue';
+  import { ref, useTemplateRef } from 'vue';
   import RecessGraphic from './assets/recess.svg';
   import PlayStationLogoGraphic from './assets/playstation-logo.svg';
   import { useGlobalRelease } from '@/composables';
 
-  const emit = defineEmits([
-    'pressed',
-    'released',
-  ]);
+  export enum ComponentEvent {
+    Pressed = 'pressed',
+    Released = 'released',
+  }
+
+  type GradientStop = {
+    offset: number,
+    color: string,
+    opacity: number,
+  }
+
+  type GradientSize = {
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+  }
+
+  type GradientValues = {
+    id: string,
+    size: GradientSize,
+    stops: GradientStop[],
+  }
+</script>
+
+<script setup lang="ts">
+  // defines
+
+  const emit = defineEmits(Object.values(ComponentEvent));
 
   // data
 
-  const shimmerGradient = ref(null);
-  const isDown = ref(false);
-  const recessLit = ref(false);
+  const shimmerGradient = useTemplateRef<SVGLinearGradientElement>('shimmerGradient');
+  const isDown = ref<boolean>(false);
+  const recessLit = ref<boolean>(false);
+  let shimmerGradientTween:GSAPTween|null = null;
   let lightingTimeout = null;
-  let shimmerGradientTween = null;
 
-  const shimmerGradientValues = ref({
+  const shimmerGradientValues = ref<GradientValues>({
     id: uniqueId('ps-button-shimmer'),
     size: { x1: 21.34, y1: -50, x2: 33.99, y2: 0 },
     stops: [
@@ -81,30 +106,38 @@
 
   // methods
 
-  function onMouseDown() {
+  function onMouseDown():void {
+    // update internal state
     isDown.value = true;
-    emit('pressed');
     recessLit.value = true;
+    // emit event
+    emit(ComponentEvent.Pressed);
+    // clear existing timeout if applicable
     if (lightingTimeout) {
       clearTimeout(lightingTimeout);
     }
-    lightingTimeout = setTimeout(() => {
+    // create timeout to turn off recess lighting
+    lightingTimeout = setTimeout(():void => {
       recessLit.value = false;
     }, 250);
+    // kill existing shimmer animation if applicable
     if (shimmerGradientTween) {
       shimmerGradientTween.kill();
     }
-    const shimmer = { y1: -25, y2: 0 };
-    const onUpdate = () => {
-      shimmerGradient.value.setAttribute('y1', shimmer.y1);
-      shimmerGradient.value.setAttribute('y2', shimmer.y2);
+    // animate shimmer effect
+    const shimmer:{ y1:number, y2:number } = { y1: -25, y2: 0 };
+    const onUpdate:GSAPCallback = ():void => {
+      shimmerGradient.value.setAttribute('y1', String(shimmer.y1));
+      shimmerGradient.value.setAttribute('y2', String(shimmer.y2));
     };
     shimmerGradientTween = gsap.to(shimmer, { y1: 40, y2: 90, duration: 0.75, ease: 'circ.out', onUpdate });
   }
 
-  function onRelease() {
+  function onRelease():void {
+    // update internal state
     isDown.value = false;
-    emit('released');
+    // emit event
+    emit(ComponentEvent.Released);
   }
 
   useGlobalRelease(isDown, onRelease);
@@ -114,7 +147,7 @@
   @use 'sass:color';
   @use '@/styles/core' as *;
 
-  .root {
+  .c-playstation-button {
     width: 100%;
     line-height: 0;
 

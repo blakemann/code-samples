@@ -1,5 +1,5 @@
 <template>
-  <div class="game-controller-demo">
+  <div class="c-game-controller-demo">
     <h1>Game Controller Demo</h1>
     <div class="demo-content">
       <div class="log-box">
@@ -14,18 +14,21 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import { ref } from 'vue';
   import GameController from '@/components/GameController';
   import LogBox from '@/components/LogBox';
+  import type { LogEntry } from '@/components/LogBox';
+  import type { LogItemData } from '@/components/LogItem';
+  import type { Input } from '@/utilities/constants';
 
   // data
 
-  const logs = ref([]);
+  const logs = ref<LogEntry[]>([]);
 
   // methods
 
-  function onInput(input, data) {
+  function onInput(input:Input, data:LogItemData):void {
     logs.value.push({
       timestamp: Date.now(),
       input,
@@ -33,14 +36,14 @@
     });
   }
 
-  function onInputDataUpdate(data) {
-    const log = logs.value[logs.value.length - 1];
+  function onInputDataUpdate(data:LogItemData):void {
+    const log:LogEntry = logs.value[logs.value.length - 1];
     log.data = data;
   }
 </script>
 
 <style lang="scss" scoped>
-  .game-controller-demo {
+  .c-game-controller-demo {
     min-height: 100%;
     display: flex;
     align-items: center;

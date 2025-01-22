@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "types": [
+      "vite/client",
+      "node"
+    ],
+    "paths": {
+      "@/TestHarness": ["./build/vitest/TestHarness"],
+      "@/assets/*": ["./packages/vue/src/assets/*"],
+      "@/components/*": ["./packages/vue/src/components/*"],
+      "@/composables": ["./packages/vue/src/composables"],
+      "@/styles": ["./packages/vue/src/styles"],
+      "@/utilities/*": ["./packages/vue/src/utilities/*"]
+    }
+  },
+  "files": [
+    "node_modules/gsap/types/index.d.ts"
+  ]
+}

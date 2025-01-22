@@ -1,4 +1,4 @@
-import DirectionalButton from './index';
+import DirectionalButton, { DirectionalButtonDirection } from './index';
 
 export default {
   title: 'Components/DirectionalButton',
@@ -20,27 +20,27 @@ const render = (args) => ({
 export const Up = {
   render,
   args: {
-    direction: 'up',
+    direction: DirectionalButtonDirection.Up,
   },
 };
 
 export const Down = {
   render,
   args: {
-    direction: 'down',
+    direction: DirectionalButtonDirection.Down,
   },
 };
 
 export const Left = {
   render,
   args: {
-    direction: 'left',
+    direction: DirectionalButtonDirection.Left,
   },
 };
 
 export const Right = {
   render,
   args: {
-    direction: 'right',
+    direction: DirectionalButtonDirection.Right,
   },
 };

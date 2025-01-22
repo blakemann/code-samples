@@ -1,5 +1,5 @@
 import LogItem from './index';
-import { INPUTS } from '@/utilities/constants';
+import { Input } from '@/utilities/constants';
 
 export default {
   title: 'Components/LogItem',
@@ -21,28 +21,28 @@ const render = (args) => ({
 export const Triangle = {
   render,
   args: {
-    input: INPUTS.TRIANGLE,
+    input: Input.TRIANGLE,
   },
 };
 
 export const Circle = {
   render,
   args: {
-    input: INPUTS.CIRCLE,
+    input: Input.CIRCLE,
   },
 };
 
 export const Cross = {
   render,
   args: {
-    input: INPUTS.CROSS,
+    input: Input.CROSS,
   },
 };
 
 export const Square = {
   render,
   args: {
-    input: INPUTS.SQUARE,
+    input: Input.SQUARE,
   },
 };
 
@@ -50,7 +50,7 @@ export const L1 = {
   name: 'L1',
   render,
   args: {
-    input: INPUTS.L1,
+    input: Input.L1,
   },
 };
 
@@ -58,77 +58,77 @@ export const R1 = {
   name: 'R1',
   render,
   args: {
-    input: INPUTS.R1,
+    input: Input.R1,
   },
 };
 
 export const Up = {
   render,
   args: {
-    input: INPUTS.UP,
+    input: Input.UP,
   },
 };
 
 export const Down = {
   render,
   args: {
-    input: INPUTS.DOWN,
+    input: Input.DOWN,
   },
 };
 
 export const Left = {
   render,
   args: {
-    input: INPUTS.LEFT,
+    input: Input.LEFT,
   },
 };
 
 export const Right = {
   render,
   args: {
-    input: INPUTS.RIGHT,
+    input: Input.RIGHT,
   },
 };
 
 export const Share = {
   render,
   args: {
-    input: INPUTS.SHARE,
+    input: Input.SHARE,
   },
 };
 
 export const Options = {
   render,
   args: {
-    input: INPUTS.OPTIONS,
+    input: Input.OPTIONS,
   },
 };
 
 export const Mute = {
   render,
   args: {
-    input: INPUTS.MUTE,
+    input: Input.MUTE,
   },
 };
 
 export const Unmute = {
   render,
   args: {
-    input: INPUTS.UNMUTE,
+    input: Input.UNMUTE,
   },
 };
 
 export const PS = {
   render,
   args: {
-    input: INPUTS.PS,
+    input: Input.PS,
   },
 };
 
 export const LeftStick = {
   render,
   args: {
-    input: INPUTS.LEFTSTICK,
+    input: Input.LEFTSTICK,
     data: {
       angle: 45,
       force: 0.75,
@@ -139,7 +139,7 @@ export const LeftStick = {
 export const RightStick = {
   render,
   args: {
-    input: INPUTS.RIGHTSTICK,
+    input: Input.RIGHTSTICK,
     data: {
       angle: 45,
       force: 0.75,

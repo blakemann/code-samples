@@ -1,7 +1,7 @@
 <template>
   <div
     ref="logBox"
-    class="component-log-box"
+    class="c-log-box"
   >
     <div
       v-if="logs.length === 0"
@@ -53,52 +53,64 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts">
   import { gsap } from 'gsap';
-  import { ref, computed } from 'vue';
-  import IconCross from '../../assets/action-cross.svg';
-  import LogItem from '@/components/LogItem';
+  import { computed, useTemplateRef, TransitionGroup } from 'vue';
+  import IconCross from '@/assets/action-cross.svg';
+  import LogItem, { LogItemData } from '@/components/LogItem';
+  import type { Input } from '@/utilities/constants';
 
-  const props = defineProps({
-    logs: {
-      type: Array,
-      default: () => [],
-    },
-  });
+  export type LogEntry = {
+    timestamp: number,
+    input: Input,
+    data: LogItemData,
+  }
+
+  type TransitionGroupType = InstanceType<typeof TransitionGroup>;
+
+  interface Props {
+    logs: Array<LogEntry>,
+  }
+</script>
+
+<script setup lang="ts">
+  // defines
+
+  const { logs = [] } = defineProps<Props>();
 
   // data
 
-  const logBox = ref(null);
-  const logContainer = ref(null);
-  const maxLogs = 3;
-  const logItemTransitionDuration = 0.3;
+  const logBox = useTemplateRef<HTMLDivElement>('logBox');
+  const logContainer = useTemplateRef<TransitionGroupType>('logContainer');
+  const maxLogs:number = 3;
+  const logItemTransitionDuration:number = 0.3;
 
   // computed
 
-  const hiddenCountMessage = computed(() => {
-    if (props.logs.length <= maxLogs) {
+  const hiddenCountMessage = computed<string|null>(() => {
+    if (logs.length <= maxLogs) {
       return null;
     }
-    const count = props.logs.length - maxLogs;
+    const count:number = logs.length - maxLogs;
     return count === 1 ? '1 older log not displayed' : `${count} older logs not displayed`;
   });
 
-  const visibleLogs = computed(() => {
-    return props.logs.slice(-maxLogs);
+  const visibleLogs = computed<LogEntry[]>(() => {
+    return logs.slice(-maxLogs);
   });
 
   // methods
 
-  function onEnter(itemWrapper, onComplete) {
-    const item = itemWrapper.children[0];
+  function onEnter(itemWrapper:HTMLDivElement, onComplete:GSAPCallback):void {
+    const item:Element = itemWrapper.children[0];
     // animate item entering
     gsap.fromTo(itemWrapper, { height: 0 }, { height: 'auto', duration: logItemTransitionDuration, ease: 'power1.inOut' });
     gsap.fromTo(item, { scale: 0.75, opacity: 0 }, { scale: 1, opacity: 1, duration: logItemTransitionDuration, ease: 'power1.out', onComplete });
   }
 
-  function onLeave(itemWrapper, onComplete) {
-    const item = itemWrapper.children[0];
-    const wrapperHeight = itemWrapper.offsetHeight;
+  function onLeave(itemWrapper:HTMLDivElement, onComplete:GSAPCallback):void {
+    const item:Element = itemWrapper.children[0];
+    const wrapperHeight:number = itemWrapper.offsetHeight;
     // animate item leaving
     gsap.fromTo(itemWrapper, { height: wrapperHeight }, { height: 0, duration: logItemTransitionDuration, ease: 'power1.inOut' });
     gsap.fromTo(item, { scale: 1, opacity: 1 }, { scale: 0.75, opacity: 0, duration: logItemTransitionDuration, ease: 'power1.out', onComplete });
@@ -106,7 +118,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .component-log-box {
+  .c-log-box {
     background: #fff;
     border-radius: 6px;
     padding: 12px;

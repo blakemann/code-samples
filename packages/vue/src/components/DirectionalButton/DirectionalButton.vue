@@ -1,9 +1,9 @@
 <template>
-  <div :class="`root root--${direction}`">
-    <div class="rotation-wrapper">
-      <div class="recess">
+  <span :class="`c-directional-button c-directional-button--${direction}`">
+    <span class="rotation-wrapper">
+      <span class="recess">
         <GraphicRecess />
-      </div>
+      </span>
       <button
         type="button"
         :aria-label="direction"
@@ -78,40 +78,97 @@
           />
         </svg>
       </button>
-    </div>
-  </div>
+    </span>
+  </span>
 </template>
 
-<script setup>
+<script lang="ts">
   import { uniqueId } from 'lodash-es';
   import { gsap } from 'gsap';
-  import { computed, ref } from 'vue';
+  import { computed, ref, useTemplateRef } from 'vue';
   import GraphicRecess from './assets/recess.svg';
   import { useGlobalRelease } from '@/composables';
 
-  const props = defineProps({
-    direction: {
-      type: String,
-      validator(value) {
-        return ['up', 'down', 'left', 'right'].includes(value);
-      },
-      default: 'up',
-    },
-  });
+  export enum ComponentEvent {
+    Pressed = 'pressed',
+    Released = 'released',
+  }
 
-  const emit = defineEmits([
-    'pressed',
-    'released',
-  ]);
+  export enum Direction {
+    Up = 'up',
+    Down = 'down',
+    Left = 'left',
+    Right = 'right',
+  }
+
+  enum Orientation {
+    Horizontal = 'horizontal',
+    Vertical = 'vertical',
+  }
+
+  type GradientStop = {
+    offset: number,
+    color: string,
+    opacity: number,
+  }
+
+  type GradientStops = {
+    up: Array<GradientStop>,
+    down: Array<GradientStop>,
+    left: Array<GradientStop>,
+    right: Array<GradientStop>,
+  }
+
+  type GradientSize = {
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+  }
+
+  type GradientSizes = {
+    vertical: GradientSize,
+    horizontal: GradientSize,
+  }
+
+  type GradientData = {
+    edge: {
+      id: string,
+      sizes: GradientSizes,
+      stops: GradientStops,
+    },
+    face: {
+      id: string,
+      sizes: GradientSizes,
+      stops: GradientStops,
+    },
+    shimmer: {
+      id: string,
+      size: GradientSize,
+      stops: Array<GradientStop>,
+    },
+  }
+
+  interface Props {
+    direction: Direction,
+  }
+</script>
+
+<script setup lang="ts">
+  // defines
+
+  const { direction = Direction.Up } = defineProps<Props>();
+
+  const emit:Function = defineEmits(Object.values(ComponentEvent));
 
   // data
 
-  const shimmer = ref(null);
-  const shimmerGradient = ref(null);
-  const isDown = ref(false);
-  let shimmerTimeline = null;
+  const shimmer = useTemplateRef<SVGPathElement>('shimmer');
+  const shimmerGradient = useTemplateRef<SVGLinearGradientElement>('shimmerGradient');
+  const isDown = ref<boolean>(false);
+  let shimmerTimeline:GSAPTimeline|null = null;
 
-  const gradients = ref({
+  const gradients = ref<GradientData>({
     edge: {
       id: uniqueId('d-button-edge'),
       sizes: {
@@ -184,32 +241,42 @@
 
   // computed
 
-  const orientation = computed(() => {
-    return ['left', 'right'].includes(props.direction) ? 'horizontal' : 'vertical';
+  const orientation = computed<Orientation>(() => {
+    return [Direction.Left, Direction.Right].includes(direction) ? Orientation.Horizontal : Orientation.Vertical;
   });
 
   // methods
 
-  function onMouseDown() {
-    isDown.value = true;
-    emit('pressed');
-    const size = { y1: 0, y2: 600 };
-    if (shimmerTimeline) {
-      shimmerTimeline.kill();
+  function onMouseDown():void {
+    if (shimmer.value) {
+      // update internal state
+      isDown.value = true;
+      // emit event
+      emit(ComponentEvent.Pressed);
+      // halt and reset existing animation timeline
+      if (shimmerTimeline) {
+        shimmerTimeline.kill();
+      }
+      shimmerTimeline = gsap.timeline();
+      // animate
+      const size:{ y1:number, y2:number } = { y1: 0, y2: 600 };
+      const onUpdate:GSAPCallback = ():void => {
+        if (shimmerGradient.value) {
+          shimmerGradient.value.setAttribute('y1', String(size.y1));
+          shimmerGradient.value.setAttribute('y2', String(size.y2));
+        }
+      };
+      shimmerTimeline.to(shimmer.value, { opacity: 0.4, duration: 0.1, ease: 'power1.easeIn' });
+      shimmerTimeline.to(shimmer.value, { opacity: 0, duration: 0.5, ease: 'power1.easeOut', delay: 0.1 });
+      shimmerTimeline.to(size, { y1: -540, y2: 60, duration: 0.5, ease: 'power1.easeIn', onUpdate }, 0);
     }
-    shimmerTimeline = gsap.timeline();
-    const onUpdate = () => {
-      shimmerGradient.value.setAttribute('y1', size.y1);
-      shimmerGradient.value.setAttribute('y2', size.y2);
-    };
-    shimmerTimeline.to(shimmer.value, { opacity: 0.4, duration: 0.1, ease: 'power1.easeIn' });
-    shimmerTimeline.to(shimmer.value, { opacity: 0, duration: 0.5, ease: 'power1.easeOut', delay: 0.1 });
-    shimmerTimeline.to(size, { y1: -540, y2: 60, duration: 0.5, ease: 'power1.easeIn', onUpdate }, 0);
   }
 
-  function onRelease() {
+  function onRelease():void {
+    // update internal state
     isDown.value = false;
-    emit('released');
+    // emit event
+    emit(ComponentEvent.Released);
   }
 
   useGlobalRelease(isDown, onRelease);
@@ -218,9 +285,10 @@
 <style lang="scss" scoped>
   @use '@/styles/core' as *;
 
-  .root {
+  .c-directional-button {
     width: 100%;
     position: relative;
+    display: inline-block;
 
     :deep(svg) {
       height: 100%;
@@ -246,10 +314,16 @@
     }
   }
 
+  .rotation-wrapper {
+    display: inline-block;
+    width: 100%;
+  }
+
   .recess {
     fill: #222;
     width: 100%;
     height: 100%;
+    display: inline-block;
   }
 
   .button {

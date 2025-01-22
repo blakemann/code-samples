@@ -45,7 +45,6 @@ export function toHaveEmittedWith(wrapper, event, ...params) {
   };
 }
 
-// eslint-disable-next-line no-undef
 expect.extend({
   toHaveEmitted,
   toHaveEmittedWith,

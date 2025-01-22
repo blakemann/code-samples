@@ -1,5 +1,5 @@
 import LogBox from './index';
-import { INPUTS } from '@/utilities/constants';
+import { Input } from '@/utilities/constants';
 
 export default {
   title: 'Components/LogBox',
@@ -29,9 +29,9 @@ export const LessThanMax = {
   render,
   args: {
     logs: [
-      { timestamp: 1, input: INPUTS.TRIANGLE },
-      { timestamp: 2, input: INPUTS.CIRCLE },
-      { timestamp: 3, input: INPUTS.SQUARE },
+      { timestamp: 1, input: Input.TRIANGLE },
+      { timestamp: 2, input: Input.CIRCLE },
+      { timestamp: 3, input: Input.SQUARE },
     ],
   },
 };
@@ -40,10 +40,10 @@ export const MoreThanMax = {
   render,
   args: {
     logs: [
-      { timestamp: 1, input: INPUTS.TRIANGLE },
-      { timestamp: 2, input: INPUTS.CIRCLE },
-      { timestamp: 3, input: INPUTS.SQUARE },
-      { timestamp: 4, input: INPUTS.CROSS },
+      { timestamp: 1, input: Input.TRIANGLE },
+      { timestamp: 2, input: Input.CIRCLE },
+      { timestamp: 3, input: Input.SQUARE },
+      { timestamp: 4, input: Input.CROSS },
     ],
   },
 };

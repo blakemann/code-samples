@@ -1,5 +1,5 @@
 import Icon from '@fortawesome/fontawesome-free/svgs/solid/bars.svg';
-import MenuButton from './index';
+import MenuButton, { MenuButtonSide } from './index';
 
 export default {
   title: 'Components/MenuButton',
@@ -25,7 +25,7 @@ export const Left = {
   render,
   args: {
     label: 'Example',
-    side: 'left',
+    side: MenuButtonSide.Left,
   },
 };
 
@@ -33,6 +33,6 @@ export const Right = {
   render,
   args: {
     label: 'Example',
-    side: 'right',
+    side: MenuButtonSide.Right,
   },
 };

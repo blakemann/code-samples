@@ -1,13 +1,13 @@
 <template>
-  <TouchPadGraphic class="graphic" />
+  <TouchPadGraphic class="c-touch-pad" />
 </template>
 
-<script setup>
+<script setup lang="ts">
   import TouchPadGraphic from './assets/touch-pad.svg';
 </script>
 
 <style lang="scss" scoped>
-  .graphic {
+  .c-touch-pad {
     width: 100%;
   }
 </style>

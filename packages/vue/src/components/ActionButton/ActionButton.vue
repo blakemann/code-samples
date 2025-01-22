@@ -1,6 +1,6 @@
 <template>
-  <div class="root">
-    <div class="recess">
+  <span class="c-action-button">
+    <span class="recess">
       <button
         type="button"
         :class="{
@@ -17,58 +17,70 @@
           class="shimmer"
         />
       </button>
-    </div>
-  </div>
+    </span>
+  </span>
 </template>
 
-<script setup>
+<script lang="ts">
   import { gsap } from 'gsap';
-  import { ref } from 'vue';
+  import { ref, useTemplateRef } from 'vue';
   import { useGlobalRelease } from '@/composables';
 
-  defineProps({
-    label: {
-      type: String,
-      required: true,
-    },
-    color: {
-      type: String,
-      validator(value) {
-        return ['green', 'red', 'blue', 'pink'].includes(value);
-      },
-      default: 'green',
-    },
-  });
+  export enum Color {
+    Green = 'green',
+    Red = 'red',
+    Blue = 'blue',
+    Pink = 'pink',
+  }
 
-  const emit = defineEmits([
-    'pressed',
-    'released',
-  ]);
+  export enum ComponentEvent {
+    Pressed = 'pressed',
+    Released = 'released',
+  }
+
+  interface Props {
+    label: string,
+    color: Color,
+  }
+</script>
+
+<script setup lang="ts">
+  // defines
+
+  const { color = Color.Green } = defineProps<Props>();
+
+  const emit:Function = defineEmits(Object.values(ComponentEvent));
 
   // data
 
-  const shimmer = ref(null);
-  const isDown = ref(false);
-  let shimmerTimeline = null;
+  const shimmer = useTemplateRef<HTMLSpanElement>('shimmer');
+  const isDown = ref<boolean>(false);
+  let shimmerTimeline:GSAPTimeline|null = null;
 
   // methods
 
-  function onMouseDown() {
+  function onMouseDown():void {
+    // update internal state
     isDown.value = true;
-    emit('pressed');
-    const $el = shimmer.value;
-    if (shimmerTimeline) {
-      shimmerTimeline.kill();
+    // emit event
+    emit(ComponentEvent.Pressed);
+    // animate
+    if (shimmer.value) {
+      if (shimmerTimeline) {
+        shimmerTimeline.kill();
+      }
+      shimmerTimeline = gsap.timeline();
+      shimmerTimeline.to(shimmer.value, { opacity: 1, duration: 0.1, ease: 'power1.easeIn' });
+      shimmerTimeline.to(shimmer.value, { opacity: 0, duration: 0.5, ease: 'power1.easeOut' });
+      shimmerTimeline.fromTo(shimmer.value, { scale: 0 }, { scale: 1, duration: 0.5, ease: 'power1.easeIn' }, 0);
     }
-    shimmerTimeline = gsap.timeline();
-    shimmerTimeline.to($el, { opacity: 1, duration: 0.1, ease: 'power1.easeIn' });
-    shimmerTimeline.to($el, { opacity: 0, duration: 0.5, ease: 'power1.easeOut' });
-    shimmerTimeline.fromTo($el, { scale: 0 }, { scale: 1, duration: 0.5, ease: 'power1.easeIn' }, 0);
   }
 
-  function onRelease() {
+  function onRelease():void {
+    // update internal state
     isDown.value = false;
-    emit('released');
+    // emit event
+    emit(ComponentEvent.Released);
   }
 
   useGlobalRelease(isDown, onRelease);
@@ -77,9 +89,10 @@
 <style lang="scss" scoped>
   @use '@/styles/core' as *;
 
-  .root {
+  .c-action-button {
     width: 100%;
     aspect-ratio: 1 / 1;
+    display: inline-block;
   }
 
   .recess {
@@ -88,6 +101,7 @@
     padding: 5%;
     width: 100%;
     height: 100%;
+    display: inline-block;
   }
 
   .button {
