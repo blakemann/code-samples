@@ -23,6 +23,8 @@ vitest.config.js.timestamp*
 *.local
 **/dist
 **/storybook-static
+**/vue-storybook-static
+**/react-storybook-static
 
 # Logs
 

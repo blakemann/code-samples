@@ -22,8 +22,8 @@
     "open": "storybook dev -p 6006",
     "build": "storybook build",
     "open:vue": "storybook dev -p 6016 -c '../../packages/vue/.storybook'",
-    "build:vue": "storybook build -c '../../packages/vue/.storybook'",
+    "build:vue": "storybook build -c '../../packages/vue/.storybook' -o vue-storybook-static",
     "open:react": "storybook dev -p 6026 -c '../../packages/react/.storybook'",
-    "build:react": "storybook build -c '../../packages/react/.storybook'"
+    "build:react": "storybook build -c '../../packages/react/.storybook' -o react-storybook-static"
   }
 }

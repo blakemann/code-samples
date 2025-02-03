@@ -20,15 +20,29 @@ const config = {
     name: getAbsolutePath('@storybook/vue3-vite'),
     options: {},
   },
-  refs: {
-    vue: {
-      title: 'Vue',
-      url: 'http://localhost:6016',
-    },
-    react: {
-      title: 'React',
-      url: 'http://localhost:6026',
-    },
+  refs: (config, { configType }) => {
+    if (configType === 'DEVELOPMENT') {
+      return {
+        vue: {
+          title: 'Vue',
+          url: 'http://localhost:6016',
+        },
+        react: {
+          title: 'React',
+          url: 'http://localhost:6026',
+        },
+      };
+    }
+    return {
+      vue: {
+        title: 'Vue',
+        url: 'https://code.blakemann.com/vue-storybook',
+      },
+      react: {
+        title: 'React',
+        url: 'https://code.blakemann.com/react-storybook',
+      },
+    };
   },
   core: {
     builder: {
