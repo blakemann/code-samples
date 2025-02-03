@@ -7,8 +7,9 @@
     "@storybook/addon-essentials": "8.4.6",
     "@storybook/addon-interactions": "8.4.6",
     "@storybook/blocks": "8.4.6",
-    "@storybook/manager-api": "^8.4.6",
+    "@storybook/manager-api": "8.4.6",
     "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react-vite": "8.4.6",
     "@storybook/test": "8.4.6",
     "@storybook/theming": "^8.4.6",
     "@storybook/vue3": "8.4.6",
@@ -19,6 +20,10 @@
   },
   "scripts": {
     "open": "storybook dev -p 6006",
-    "build": "storybook build"
+    "build": "storybook build",
+    "open:vue": "storybook dev -p 6016 -c '../../packages/vue/.storybook'",
+    "build:vue": "storybook build -c '../../packages/vue/.storybook'",
+    "open:react": "storybook dev -p 6026 -c '../../packages/react/.storybook'",
+    "build:react": "storybook build -c '../../packages/react/.storybook'"
   }
 }

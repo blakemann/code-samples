@@ -46,13 +46,13 @@
   import IconAnalogStick from './assets/analog-stick.svg';
   import IconDirection from './assets/direction-button.svg';
   import IconPS from './assets/ps-button.svg';
-  import IconCircle from '@/assets/action-circle.svg';
-  import IconCross from '@/assets/action-cross.svg';
-  import IconSquare from '@/assets/action-square.svg';
-  import IconTriangle from '@/assets/action-triangle.svg';
-  import IconOptions from '@/assets/menu-options.svg';
-  import IconShare from '@/assets/menu-share.svg';
-  import { Input } from '@/utilities/constants';
+  import IconCircle from '@/vue/assets/action-circle.svg';
+  import IconCross from '@/vue/assets/action-cross.svg';
+  import IconSquare from '@/vue/assets/action-square.svg';
+  import IconTriangle from '@/vue/assets/action-triangle.svg';
+  import IconOptions from '@/vue/assets/menu-options.svg';
+  import IconShare from '@/vue/assets/menu-share.svg';
+  import { Input } from '@/vue/utilities/constants';
 
   export type LogItemData = {
     angle: number,

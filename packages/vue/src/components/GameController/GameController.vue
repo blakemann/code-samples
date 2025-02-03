@@ -96,24 +96,24 @@
 <script lang="ts">
   import { gsap } from 'gsap';
   import { ref, useTemplateRef } from 'vue';
-  import type { Coord } from '@/utilities/trigonometry';
-  import ActionButton, { ActionButtonColor } from '@/components/ActionButton';
-  import DirectionalButton, { DirectionalButtonDirection } from '@/components/DirectionalButton';
-  import { Input } from '@/utilities/constants';
-  import IconCircle from '@/assets/action-circle.svg';
-  import IconCross from '@/assets/action-cross.svg';
-  import IconSquare from '@/assets/action-square.svg';
-  import IconTriangle from '@/assets/action-triangle.svg';
-  import IconOptions from '@/assets/menu-options.svg';
-  import IconShare from '@/assets/menu-share.svg';
-  import AnalogStick from '@/components/AnalogStick';
-  import ControllerBody from '@/components/ControllerBody';
-  import MenuButton, { MenuButtonSide } from '@/components/MenuButton';
-  import MuteButton from '@/components/MuteButton';
-  import PlayStationButton from '@/components/PlayStationButton';
-  import ShoulderButton, { ShoulderButtonSide } from '@/components/ShoulderButton';
-  import TouchPad from '@/components/TouchPad';
-  import { getPointAlongAngle } from '@/utilities/trigonometry';
+  import type { Coord } from '@/vue/utilities/trigonometry';
+  import ActionButton, { ActionButtonColor } from '@/vue/components/ActionButton';
+  import DirectionalButton, { DirectionalButtonDirection } from '@/vue/components/DirectionalButton';
+  import { Input } from '@/vue/utilities/constants';
+  import IconCircle from '@/vue/assets/action-circle.svg';
+  import IconCross from '@/vue/assets/action-cross.svg';
+  import IconSquare from '@/vue/assets/action-square.svg';
+  import IconTriangle from '@/vue/assets/action-triangle.svg';
+  import IconOptions from '@/vue/assets/menu-options.svg';
+  import IconShare from '@/vue/assets/menu-share.svg';
+  import AnalogStick from '@/vue/components/AnalogStick';
+  import ControllerBody from '@/vue/components/ControllerBody';
+  import MenuButton, { MenuButtonSide } from '@/vue/components/MenuButton';
+  import MuteButton from '@/vue/components/MuteButton';
+  import PlayStationButton from '@/vue/components/PlayStationButton';
+  import ShoulderButton, { ShoulderButtonSide } from '@/vue/components/ShoulderButton';
+  import TouchPad from '@/vue/components/TouchPad';
+  import { getPointAlongAngle } from '@/vue/utilities/trigonometry';
 
   export enum ComponentEvent {
     Input = 'input',

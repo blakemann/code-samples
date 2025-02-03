@@ -25,7 +25,7 @@
 
 <script lang="ts">
   import { ref } from 'vue';
-  import { useGlobalRelease } from '@/composables';
+  import { useGlobalRelease } from '@/vue/composables';
 
   export enum ButtonSide {
     Left = 'left',
@@ -85,7 +85,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @use '@/styles/core' as *;
+  @use '@/vue/styles/core' as *;
 
   .c-menu-button {
     width: 100%;

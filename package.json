@@ -10,7 +10,11 @@
   ],
   "scripts": {
     "storybook": "yarn workspace @build/storybook open",
+    "storybook:vue": "yarn workspace @build/storybook open:vue",
+    "storybook:react": "yarn workspace @build/storybook open:react",
     "storybook:build": "yarn workspace @build/storybook build",
+    "storybook:build:vue": "yarn workspace @build/storybook build:vue",
+    "storybook:build:react": "yarn workspace @build/storybook build:react",
     "build": "yarn workspaces foreach --all -p --exclude 'build/*' run build",
     "test:unit": "vitest",
     "test:unit:dev": "vitest --ui",
@@ -44,6 +48,7 @@
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0",
     "vite": "^6.0.1",
+    "vite-svg-loader": "^5.1.0",
     "vitest": "^2.1.8",
     "vue": "^3.5.13"
   }

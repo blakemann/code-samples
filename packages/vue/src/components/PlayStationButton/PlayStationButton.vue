@@ -53,7 +53,7 @@
   import { ref, useTemplateRef } from 'vue';
   import RecessGraphic from './assets/recess.svg';
   import PlayStationLogoGraphic from './assets/playstation-logo.svg';
-  import { useGlobalRelease } from '@/composables';
+  import { useGlobalRelease } from '@/vue/composables';
 
   export enum ComponentEvent {
     Pressed = 'pressed',
@@ -145,7 +145,7 @@
 
 <style lang="scss" scoped>
   @use 'sass:color';
-  @use '@/styles/core' as *;
+  @use '@/vue/styles/core' as *;
 
   .c-playstation-button {
     width: 100%;

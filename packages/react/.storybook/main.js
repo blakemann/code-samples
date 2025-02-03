@@ -10,35 +10,25 @@ function getAbsolutePath(value) {
 
 const config = {
   stories: [
-    '../**/*.mdx',
+    '../**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/preset-scss'),
   ],
   framework: {
-    name: getAbsolutePath('@storybook/vue3-vite'),
+    name: getAbsolutePath('@storybook/react-vite'),
     options: {},
-  },
-  refs: {
-    vue: {
-      title: 'Vue',
-      url: 'http://localhost:6016',
-    },
-    react: {
-      title: 'React',
-      url: 'http://localhost:6026',
-    },
   },
   core: {
     builder: {
       name: '@storybook/builder-vite',
       options: {
-        viteConfigPath: '../../packages/vue/vite.config.js',
+        viteConfigPath: '../../packages/react/vite.config.js',
       },
     },
   },
-  staticDirs: ['../public'],
+  staticDirs: ['../../../build/storybook/public'],
 };
 
 export default config;

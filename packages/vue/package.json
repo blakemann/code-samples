@@ -4,12 +4,12 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "vue-tsc && vite build",
-    "test:unit": "vitest"
+    "build": "vue-tsc && vite build"
   },
   "devDependencies": {
     "@build/vitest": "*",
     "@fortawesome/fontawesome-free": "^6.7.1",
+    "@storybook/manager-api": "*",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/test-utils": "*",
     "gsap": "^3.12.5",
@@ -18,7 +18,7 @@
     "radix-vue": "^1.9.10",
     "sass-embedded": "^1.81.0",
     "vite": "*",
-    "vite-svg-loader": "^5.1.0",
+    "vite-svg-loader": "*",
     "vue": "*",
     "vue-tsc": "^2.2.0"
   }

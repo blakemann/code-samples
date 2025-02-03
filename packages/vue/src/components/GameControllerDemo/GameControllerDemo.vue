@@ -16,11 +16,11 @@
 
 <script setup lang="ts">
   import { ref } from 'vue';
-  import GameController from '@/components/GameController';
-  import LogBox from '@/components/LogBox';
-  import type { LogEntry } from '@/components/LogBox';
-  import type { LogItemData } from '@/components/LogItem';
-  import type { Input } from '@/utilities/constants';
+  import GameController from '@/vue/components/GameController';
+  import LogBox from '@/vue/components/LogBox';
+  import type { LogEntry } from '@/vue/components/LogBox';
+  import type { LogItemData } from '@/vue/components/LogItem';
+  import type { Input } from '@/vue/utilities/constants';
 
   // data
 

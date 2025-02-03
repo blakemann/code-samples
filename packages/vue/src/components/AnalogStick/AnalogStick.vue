@@ -29,8 +29,8 @@
 <script lang="ts">
   import { gsap } from 'gsap';
   import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue';
-  import { useGlobalRelease } from '@/composables';
-  import { getAngle, getPointAlongAngle } from '@/utilities/trigonometry';
+  import { useGlobalRelease } from '@/vue/composables';
+  import { getAngle, getPointAlongAngle } from '@/vue/utilities/trigonometry';
 
   export enum ComponentEvent {
     Grabbed = 'grabbed',
@@ -158,7 +158,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @use '@/styles/core' as *;
+  @use '@/vue/styles/core' as *;
 
   .c-analog-stick {
     position: relative;

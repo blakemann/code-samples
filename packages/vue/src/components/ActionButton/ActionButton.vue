@@ -24,7 +24,7 @@
 <script lang="ts">
   import { gsap } from 'gsap';
   import { ref, useTemplateRef } from 'vue';
-  import { useGlobalRelease } from '@/composables';
+  import { useGlobalRelease } from '@/vue/composables';
 
   export enum Color {
     Green = 'green',
@@ -87,7 +87,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @use '@/styles/core' as *;
+  @use '@/vue/styles/core' as *;
 
   .c-action-button {
     width: 100%;

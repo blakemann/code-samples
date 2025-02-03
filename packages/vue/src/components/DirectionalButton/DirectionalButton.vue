@@ -87,7 +87,7 @@
   import { gsap } from 'gsap';
   import { computed, ref, useTemplateRef } from 'vue';
   import GraphicRecess from './assets/recess.svg';
-  import { useGlobalRelease } from '@/composables';
+  import { useGlobalRelease } from '@/vue/composables';
 
   export enum ComponentEvent {
     Pressed = 'pressed',
@@ -283,7 +283,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @use '@/styles/core' as *;
+  @use '@/vue/styles/core' as *;
 
   .c-directional-button {
     width: 100%;

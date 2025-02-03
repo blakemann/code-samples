@@ -17,7 +17,7 @@
 
 <script lang="ts">
   import { ref } from 'vue';
-  import { useGlobalRelease } from '@/composables';
+  import { useGlobalRelease } from '@/vue/composables';
 
   export enum ComponentEvent {
     Pressed = 'pressed',
@@ -60,7 +60,7 @@
 
 <style lang="scss" scoped>
   @use 'sass:color';
-  @use '@/styles/core' as *;
+  @use '@/vue/styles/core' as *;
 
   .c-mute-button {
     width: 100%;

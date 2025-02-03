@@ -1,5 +1,5 @@
-import ControllerBody from './src/components/ControllerBody';
+import GameControllerDemo from './src/components/GameControllerDemo';
 
 export {
-  ControllerBody,
+  GameControllerDemo,
 };

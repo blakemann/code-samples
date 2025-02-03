@@ -8,17 +8,23 @@
     "noEmit": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
+    "jsx": "react-jsx",
     "types": [
       "vite/client",
       "node"
     ],
     "paths": {
       "@/TestHarness": ["./build/vitest/TestHarness"],
-      "@/assets/*": ["./packages/vue/src/assets/*"],
-      "@/components/*": ["./packages/vue/src/components/*"],
-      "@/composables": ["./packages/vue/src/composables"],
-      "@/styles": ["./packages/vue/src/styles"],
-      "@/utilities/*": ["./packages/vue/src/utilities/*"]
+      "@/vue/assets/*": ["./packages/vue/src/assets/*"],
+      "@/vue/components/*": ["./packages/vue/src/components/*"],
+      "@/vue/composables": ["./packages/vue/src/composables"],
+      "@/vue/styles": ["./packages/vue/src/styles"],
+      "@/vue/utilities/*": ["./packages/vue/src/utilities/*"],
+      "@/react/assets/*": ["./packages/react/src/assets/*"],
+      "@/react/components/*": ["./packages/react/src/components/*"],
+      "@/react/composables": ["./packages/react/src/composables"],
+      "@/react/styles": ["./packages/react/src/styles"],
+      "@/react/utilities/*": ["./packages/react/src/utilities/*"]
     }
   },
   "files": [
