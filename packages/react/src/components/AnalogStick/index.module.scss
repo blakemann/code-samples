@@ -1,0 +1,22 @@
+@use '@/shared/styles/core' as *;
+
+.c-analog-stick {
+  position: relative;
+  border-radius: 50%;
+  cursor: grab;
+  display: inline-block;
+}
+
+.graphic {
+  width: 100%;
+  vertical-align: middle;
+  position: relative;
+  z-index: 2;
+}
+
+.graphic-edge {
+  width: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
