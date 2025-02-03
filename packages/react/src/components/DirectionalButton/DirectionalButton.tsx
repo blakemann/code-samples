@@ -58,8 +58,8 @@ type GradientData = {
 
 interface Props {
   direction: Direction,
-  onPressed: () => void | undefined,
-  onReleased: () => void | undefined,
+  onPressed?: () => void | undefined,
+  onReleased?: () => void | undefined,
 }
 
 let shimmerTimeline:GSAPTimeline|null = null;

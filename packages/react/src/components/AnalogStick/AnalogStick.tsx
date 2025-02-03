@@ -12,10 +12,10 @@ import graphicEdgeSrc from './assets/analog-stick-edge.png?url';
 interface Props {
   angle: number,
   force: number,
-  onGrabbed: () => void | undefined,
-  onReleased: () => void | undefined,
-  onUpdateAngle: (angle:number) => void | undefined,
-  onUpdateForce: (force:number) => void | undefined,
+  onGrabbed?: () => void | undefined,
+  onReleased?: () => void | undefined,
+  onUpdateAngle?: (angle:number) => void | undefined,
+  onUpdateForce?: (force:number) => void | undefined,
 }
 
 const grabOrigin:Coord = { x: 0, y: 0 };

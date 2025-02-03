@@ -1,0 +1,157 @@
+.c-log-item {
+  padding: 2px 0;
+}
+
+.content-wrapper {
+  background: #f1f1f1;
+  border-radius: 6px;
+  padding: 8px 12px;
+  display: flex;
+  grid-gap: 14px;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+}
+
+.symbol {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+
+  .background {
+    &--action {
+      width: 100%;
+      height: 100%;
+      background: #222;
+      border-radius: 100%;
+    }
+
+    &--shoulder {
+      width: 100%;
+      height: 70%;
+      background: #222;
+      border-radius: 6px;
+    }
+
+    &--direction {
+      svg {
+        fill: #222;
+        height: 25px;
+        vertical-align: middle;
+      }
+    }
+
+    &--stick {
+      svg {
+        width: 100%;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .icon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+
+    svg {
+      fill: currentColor;
+      width: 60%;
+      height: 60%;
+    }
+
+    &--dark {
+      color: #222;
+    }
+  }
+
+  &--green {
+    color: #26c9b4;
+  }
+
+  &--red {
+    color: #f586a7;
+  }
+
+  &--blue {
+    color: #69aefb;
+  }
+
+  &--pink {
+    color: #ebbee9;
+  }
+
+  &--mute svg {
+    color: #e79d3e;
+  }
+
+  &--up,
+  &--down,
+  &--left,
+  &--right {
+    .icon::before {
+      content: '';
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid #fff;
+    }
+  }
+
+  &--up {
+    .icon::before {
+      transform: translateY(-5px);
+    }
+  }
+
+  &--down {
+    .background {
+      transform: rotate(180deg);
+    }
+    .icon::before {
+      transform: rotate(180deg) translateY(-5px);
+    }
+  }
+
+  &--left {
+    .background {
+      transform: rotate(-90deg);
+    }
+    .icon::before {
+      transform: rotate(-90deg) translateY(-5px);
+    }
+  }
+
+  &--right {
+    .background {
+      transform: rotate(90deg);
+    }
+    .icon::before {
+      transform: rotate(90deg) translateY(-5px);
+    }
+  }
+}
+
+.data {
+  font-size: 14px;
+
+  .message {
+    font-weight: 800;
+    color: #222;
+  }
+
+  .secondary-message {
+    margin-left: 12px;
+  }
+}

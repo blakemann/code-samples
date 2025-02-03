@@ -10,8 +10,8 @@ interface Props {
   label: string,
   color: Color,
   icon: ReactNode,
-  onPressed: () => void | undefined,
-  onReleased: () => void | undefined,
+  onPressed?: () => void | undefined,
+  onReleased?: () => void | undefined,
 }
 
 let shimmerTimeline:GSAPTimeline|null = null;
