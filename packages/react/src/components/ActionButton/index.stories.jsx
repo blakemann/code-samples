@@ -10,10 +10,9 @@ export default {
   component: ActionButton,
   render: (args) => (
   <div style={{ width: '50px', maxWidth: '100%' }}>
-    <ActionButton
-      {...args}
-      icon={icon}
-    />
+    <ActionButton {...args}>
+      <Icon />
+    </ActionButton>
   </div>
   ),
 };

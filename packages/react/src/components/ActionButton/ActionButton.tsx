@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { gsap } from 'gsap';
 import { Color } from './types';
-import type { ReactNode } from 'react';
+import type { PropsWithChildren } from 'react';
 import { useState, useRef, useCallback } from 'react';
 import styles from './index.module.scss';
 import { useGlobalRelease } from '@/react/hooks';
@@ -9,21 +9,20 @@ import { useGlobalRelease } from '@/react/hooks';
 interface Props {
   label: string,
   color: Color,
-  icon: ReactNode,
   onPressed?: () => void | undefined,
   onReleased?: () => void | undefined,
 }
 
 let shimmerTimeline:GSAPTimeline|null = null;
 
-export default function ActionButton(props:Props) {
+export default function ActionButton({ label, color, children, onPressed, onReleased }:PropsWithChildren<Props>) {
   // state
 
   const [isDown, setIsDown] = useState<boolean>(false);
 
   const buttonClasses:string = classNames({
     [styles.button]: true,
-    [styles[`button--color-${props.color}`]]: true,
+    [styles[`button--color-${color}`]]: true,
     [styles['button--pressed']]: isDown,
   });
 
@@ -35,8 +34,8 @@ export default function ActionButton(props:Props) {
     // update internal state
     setIsDown(false);
     // emit event
-    props?.onReleased?.();
-  }, [props]);
+    onReleased?.();
+  }, [onReleased]);
 
   useGlobalRelease(isDown, onRelease);
 
@@ -46,7 +45,7 @@ export default function ActionButton(props:Props) {
     // update internal state
     setIsDown(true);
     // emit event
-    props?.onPressed?.();
+    onPressed?.();
     // animate
     if (shimmer.current) {
       if (shimmerTimeline) {
@@ -67,10 +66,10 @@ export default function ActionButton(props:Props) {
         <button
           type="button"
           className={buttonClasses}
-          aria-label={props.label}
+          aria-label={label}
           onMouseDown={onMouseDown}
         >
-          {props.icon}
+          {children}
           <span
             ref={shimmer}
             className={styles.shimmer}
