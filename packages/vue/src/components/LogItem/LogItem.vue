@@ -43,16 +43,16 @@
   import IconMute from '@fortawesome/fontawesome-free/svgs/solid/microphone-slash.svg';
   import IconUnmute from '@fortawesome/fontawesome-free/svgs/solid/microphone.svg';
   import { computed } from 'vue';
-  import IconAnalogStick from './assets/analog-stick.svg';
-  import IconDirection from './assets/direction-button.svg';
   import IconPS from './assets/ps-button.svg';
-  import IconCircle from '@/vue/assets/action-circle.svg';
-  import IconCross from '@/vue/assets/action-cross.svg';
-  import IconSquare from '@/vue/assets/action-square.svg';
-  import IconTriangle from '@/vue/assets/action-triangle.svg';
-  import IconOptions from '@/vue/assets/menu-options.svg';
-  import IconShare from '@/vue/assets/menu-share.svg';
-  import { Input } from '@/vue/utilities/constants';
+  import IconDirection from './assets/direction-button.svg';
+  import IconAnalogStick from './assets/analog-stick.svg';
+  import IconCircle from '@/shared/assets/action-circle.svg';
+  import IconCross from '@/shared/assets/action-cross.svg';
+  import IconSquare from '@/shared/assets/action-square.svg';
+  import IconTriangle from '@/shared/assets/action-triangle.svg';
+  import IconOptions from '@/shared/assets/menu-options.svg';
+  import IconShare from '@/shared/assets/menu-share.svg';
+  import { Input } from '@/shared/utilities/constants';
 
   export type LogItemData = {
     angle: number,

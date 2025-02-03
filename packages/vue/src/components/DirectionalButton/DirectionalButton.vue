@@ -283,7 +283,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @use '@/vue/styles/core' as *;
+  @use '@/shared/styles/core' as *;
 
   .c-directional-button {
     width: 100%;

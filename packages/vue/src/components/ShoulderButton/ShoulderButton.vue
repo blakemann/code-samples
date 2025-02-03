@@ -71,7 +71,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @use '@/vue/styles/core' as *;
+  @use '@/shared/styles/core' as *;
 
   .c-shoulder-button {
     @include button-reset();

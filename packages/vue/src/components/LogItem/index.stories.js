@@ -1,5 +1,5 @@
 import LogItem from './index';
-import { Input } from '@/vue/utilities/constants';
+import { Input } from '@/shared/utilities/constants';
 
 export default {
   title: 'Components/LogItem',

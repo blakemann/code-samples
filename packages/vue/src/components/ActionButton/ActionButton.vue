@@ -87,7 +87,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @use '@/vue/styles/core' as *;
+  @use '@/shared/styles/core' as *;
 
   .c-action-button {
     width: 100%;

@@ -4,10 +4,15 @@ import { defineConfig } from 'vite';
 import svgLoader from 'vite-svg-loader';
 import tsconfig from '../../tsconfig.json';
 
-const aliases = Object.entries(tsconfig.compilerOptions.paths).map(([alias, [aliasPath]]) => ({
-  find: new RegExp(alias.replace('/*', '/(.*)')),
-  replacement: path.resolve(import.meta.dirname, aliasPath.replace('./packages/vue/', './').replace('/*', '/$1')),
-}));
+const aliases = Object.entries(tsconfig.compilerOptions.paths).map(([alias, [aliasPath]]) => {
+  const isVuePackage = (/@\/vue/).test(alias);
+  const pkg = isVuePackage ? 'vue' : 'shared';
+  const pkgPath = isVuePackage ? './' : '../shared/';
+  return {
+    find: new RegExp(alias.replace('/*', '/(.*)')),
+    replacement: path.resolve(import.meta.dirname, aliasPath.replace(`./packages/${pkg}/`, pkgPath).replace('/*', '/$1')),
+  };
+});
 
 export default defineConfig({
   base: '/',

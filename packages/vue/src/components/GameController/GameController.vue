@@ -96,16 +96,17 @@
 <script lang="ts">
   import { gsap } from 'gsap';
   import { ref, useTemplateRef } from 'vue';
-  import type { Coord } from '@/vue/utilities/trigonometry';
+  import type { Coord } from '@/shared/utilities/trigonometry';
+  import { Input } from '@/shared/utilities/constants';
+  import IconCircle from '@/shared/assets/action-circle.svg';
+  import IconCross from '@/shared/assets/action-cross.svg';
+  import IconSquare from '@/shared/assets/action-square.svg';
+  import IconTriangle from '@/shared/assets/action-triangle.svg';
+  import IconOptions from '@/shared/assets/menu-options.svg';
+  import IconShare from '@/shared/assets/menu-share.svg';
+  import { getPointAlongAngle } from '@/shared/utilities/trigonometry';
   import ActionButton, { ActionButtonColor } from '@/vue/components/ActionButton';
   import DirectionalButton, { DirectionalButtonDirection } from '@/vue/components/DirectionalButton';
-  import { Input } from '@/vue/utilities/constants';
-  import IconCircle from '@/vue/assets/action-circle.svg';
-  import IconCross from '@/vue/assets/action-cross.svg';
-  import IconSquare from '@/vue/assets/action-square.svg';
-  import IconTriangle from '@/vue/assets/action-triangle.svg';
-  import IconOptions from '@/vue/assets/menu-options.svg';
-  import IconShare from '@/vue/assets/menu-share.svg';
   import AnalogStick from '@/vue/components/AnalogStick';
   import ControllerBody from '@/vue/components/ControllerBody';
   import MenuButton, { MenuButtonSide } from '@/vue/components/MenuButton';
@@ -113,7 +114,6 @@
   import PlayStationButton from '@/vue/components/PlayStationButton';
   import ShoulderButton, { ShoulderButtonSide } from '@/vue/components/ShoulderButton';
   import TouchPad from '@/vue/components/TouchPad';
-  import { getPointAlongAngle } from '@/vue/utilities/trigonometry';
 
   export enum ComponentEvent {
     Input = 'input',

@@ -5,10 +5,15 @@ import svgLoader from 'vite-plugin-svgr';
 
 import tsconfig from '../../tsconfig.json';
 
-const aliases = Object.entries(tsconfig.compilerOptions.paths).map(([alias, [aliasPath]]) => ({
-  find: new RegExp(alias.replace('/*', '/(.*)')),
-  replacement: path.resolve(import.meta.dirname, aliasPath.replace('./packages/react/', './').replace('/*', '/$1')),
-}));
+const aliases = Object.entries(tsconfig.compilerOptions.paths).map(([alias, [aliasPath]]) => {
+  const isReactPackage = (/@\/react/).test(alias);
+  const pkg = isReactPackage ? 'react' : 'shared';
+  const pkgPath = isReactPackage ? './' : '../shared/';
+  return {
+    find: new RegExp(alias.replace('/*', '/(.*)')),
+    replacement: path.resolve(import.meta.dirname, aliasPath.replace(`./packages/${pkg}/`, pkgPath).replace('/*', '/$1')),
+  };
+});
 
 export default defineConfig({
   base: '/',

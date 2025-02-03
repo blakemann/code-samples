@@ -145,7 +145,7 @@
 
 <style lang="scss" scoped>
   @use 'sass:color';
-  @use '@/vue/styles/core' as *;
+  @use '@/shared/styles/core' as *;
 
   .c-playstation-button {
     width: 100%;

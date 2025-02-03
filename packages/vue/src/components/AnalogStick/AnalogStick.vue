@@ -29,17 +29,13 @@
 <script lang="ts">
   import { gsap } from 'gsap';
   import { ref, onMounted, onBeforeUnmount, watch, useTemplateRef } from 'vue';
+  import type { Coord } from '@/shared/utilities/trigonometry';
+  import { getAngle, getPointAlongAngle } from '@/shared/utilities/trigonometry';
   import { useGlobalRelease } from '@/vue/composables';
-  import { getAngle, getPointAlongAngle } from '@/vue/utilities/trigonometry';
 
   export enum ComponentEvent {
     Grabbed = 'grabbed',
     Released = 'released',
-  }
-
-  type Coord = {
-    x: number,
-    y: number,
   }
 </script>
 
@@ -158,7 +154,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @use '@/vue/styles/core' as *;
+  @use '@/shared/styles/core' as *;
 
   .c-analog-stick {
     position: relative;

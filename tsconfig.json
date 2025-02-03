@@ -15,16 +15,13 @@
     ],
     "paths": {
       "@/TestHarness": ["./build/vitest/TestHarness"],
-      "@/vue/assets/*": ["./packages/vue/src/assets/*"],
       "@/vue/components/*": ["./packages/vue/src/components/*"],
       "@/vue/composables": ["./packages/vue/src/composables"],
-      "@/vue/styles": ["./packages/vue/src/styles"],
-      "@/vue/utilities/*": ["./packages/vue/src/utilities/*"],
-      "@/react/assets/*": ["./packages/react/src/assets/*"],
       "@/react/components/*": ["./packages/react/src/components/*"],
       "@/react/hooks": ["./packages/react/src/hooks"],
-      "@/react/styles": ["./packages/react/src/styles"],
-      "@/react/utilities/*": ["./packages/react/src/utilities/*"]
+      "@/shared/assets/*": ["./packages/shared/src/assets/*"],
+      "@/shared/styles": ["./packages/shared/src/styles"],
+      "@/shared/utilities/*": ["./packages/shared/src/utilities/*"]
     }
   },
   "files": [

@@ -60,7 +60,7 @@
 
 <style lang="scss" scoped>
   @use 'sass:color';
-  @use '@/vue/styles/core' as *;
+  @use '@/shared/styles/core' as *;
 
   .c-mute-button {
     width: 100%;
