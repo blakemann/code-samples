@@ -56,15 +56,9 @@
 <script lang="ts">
   import { gsap } from 'gsap';
   import { computed, useTemplateRef, TransitionGroup } from 'vue';
+  import type { LogEntry } from './types';
   import IconCross from '@/shared/assets/action-cross.svg';
-  import type { Input } from '@/shared/utilities/constants';
-  import LogItem, { LogItemData } from '@/vue/components/LogItem';
-
-  export type LogEntry = {
-    timestamp: number,
-    input: Input,
-    data: LogItemData,
-  }
+  import LogItem from '@/vue/components/LogItem';
 
   type TransitionGroupType = InstanceType<typeof TransitionGroup>;
 
