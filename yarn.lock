@@ -227,6 +227,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@blakemann/code-sample-utilities@workspace:packages/shared":
+  version: 0.0.0-use.local
+  resolution: "@blakemann/code-sample-utilities@workspace:packages/shared"
+  languageName: unknown
+  linkType: soft
+
 "@blakemann/code-samples@workspace:.":
   version: 0.0.0-use.local
   resolution: "@blakemann/code-samples@workspace:."

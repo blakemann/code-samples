@@ -25,7 +25,7 @@ export default function ActionButton(props:Props) {
     [styles['button--pressed']]: isDown,
   });
 
-  const shimmer = useRef(null);
+  const shimmer = useRef<HTMLSpanElement|null>(null);
   let shimmerTimeline:GSAPTimeline|null = null;
 
   // effects
@@ -76,6 +76,6 @@ export default function ActionButton(props:Props) {
           />
         </button>
       </span>
-  </span>
+    </span>
   );
 }

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { gsap } from 'gsap';
+import type { MouseEvent as ReactMouseEvent } from 'react';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useGlobalRelease } from '@/react/hooks';
 import type { Coord } from '@/shared/utilities/trigonometry';
@@ -32,9 +33,9 @@ export default function AnalogStick({ angle = 0, force = 0, onGrabbed, onRelease
   const grabOrigin = useRef<Coord>({ x: 0, y: 0 });
   const maxRotation = useRef<number>(40); // degrees
   const bounds = useRef<DOMRect|null>(null);
-  const root = useRef(null);
-  const graphic = useRef(null);
-  const graphicEdge = useRef(null);
+  const root = useRef<HTMLSpanElement|null>(null);
+  const graphic = useRef<HTMLImageElement|null>(null);
+  const graphicEdge = useRef<HTMLImageElement|null>(null);
 
   // effects
 
@@ -107,7 +108,7 @@ export default function AnalogStick({ angle = 0, force = 0, onGrabbed, onRelease
 
   // event handlers
 
-  function onMouseDown(e:MouseEvent):void {
+  function onMouseDown(e:ReactMouseEvent):void {
     if (root.current) {
       // update internal state
       setIsGrabbed(true);
