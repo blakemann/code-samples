@@ -18,6 +18,10 @@ interface Props {
   onUpdateForce: (force:number) => void | undefined,
 }
 
+const grabOrigin:Coord = { x: 0, y: 0 };
+const maxRotation:number = 40; // degrees
+let bounds:DOMRect|null = null;
+
 export default function AnalogStick({ angle = 0, force = 0, onGrabbed, onReleased, onUpdateAngle, onUpdateForce }:Props) {
   // state
 
@@ -30,9 +34,6 @@ export default function AnalogStick({ angle = 0, force = 0, onGrabbed, onRelease
 
   // data
 
-  const grabOrigin = useRef<Coord>({ x: 0, y: 0 });
-  const maxRotation = useRef<number>(40); // degrees
-  const bounds = useRef<DOMRect|null>(null);
   const root = useRef<HTMLSpanElement|null>(null);
   const graphic = useRef<HTMLImageElement|null>(null);
   const graphicEdge = useRef<HTMLImageElement|null>(null);
@@ -40,16 +41,16 @@ export default function AnalogStick({ angle = 0, force = 0, onGrabbed, onRelease
   // effects
 
   const onMouseMove = useCallback((e:MouseEvent):void => {
-    if (isGrabbed && bounds.current) {
+    if (isGrabbed && bounds) {
       // get radius of boundary circle
-      const radius: number = (bounds.current.width / 2) * 0.8;
+      const radius: number = (bounds.width / 2) * 0.8;
       // get the current x/y distance that the mouse has moved
       const distance: Coord = {
-        x: e.clientX - grabOrigin.current.x,
-        y: e.clientY - grabOrigin.current.y,
+        x: e.clientX - grabOrigin.x,
+        y: e.clientY - grabOrigin.y,
       };
       // get angle between mouse start and current positions
-      onUpdateAngle?.(getAngle(grabOrigin.current.x, grabOrigin.current.y, e.clientX, e.clientY));
+      onUpdateAngle?.(getAngle(grabOrigin.x, grabOrigin.y, e.clientX, e.clientY));
       // get the furthest point that the stick can move along current angle
       const maxDistance: Coord = getPointAlongAngle(0, 0, angle, radius);
       // get a value between 0 and 1 representing how far the stick has moved between center and boundary
@@ -80,9 +81,9 @@ export default function AnalogStick({ angle = 0, force = 0, onGrabbed, onRelease
   useGlobalRelease(isGrabbed, onRelease);
 
   useEffect(() => {
-    if (bounds.current) {
+    if (bounds) {
       // get radius of boundary circle
-      const radius: number = (bounds.current.width / 2) * 0.8;
+      const radius: number = (bounds.width / 2) * 0.8;
       // get the furthest point that the stick can move along current angle
       const maxDistance: Coord = getPointAlongAngle(0, 0, angle, radius);
       // get new axis rotation values based on angle and force
@@ -94,14 +95,14 @@ export default function AnalogStick({ angle = 0, force = 0, onGrabbed, onRelease
       gsap.set(graphic.current, {
         x: maxDistance.x * force,
         y: maxDistance.y * force,
-        rotateX: maxRotation.current * rotation.x,
-        rotateY: maxRotation.current * rotation.y,
+        rotateX: maxRotation * rotation.x,
+        rotateY: maxRotation * rotation.y,
       });
       gsap.set(graphicEdge.current, {
         x: maxDistance.x * force * 0.9,
         y: maxDistance.y * force * 0.9,
-        rotateX: (maxRotation.current * 0.9) * rotation.x,
-        rotateY: (maxRotation.current * 0.9) * rotation.y,
+        rotateX: (maxRotation * 0.9) * rotation.x,
+        rotateY: (maxRotation * 0.9) * rotation.y,
       });
     }
   }, [angle, force]);
@@ -112,9 +113,9 @@ export default function AnalogStick({ angle = 0, force = 0, onGrabbed, onRelease
     if (root.current) {
       // update internal state
       setIsGrabbed(true);
-      bounds.current = root.current.getBoundingClientRect();
-      grabOrigin.current.x = e.clientX;
-      grabOrigin.current.y = e.clientY;
+      bounds = root.current.getBoundingClientRect();
+      grabOrigin.x = e.clientX;
+      grabOrigin.y = e.clientY;
       // update template
       document.body.classList.add('analog-stick-grabbed');
       // emit event

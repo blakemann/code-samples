@@ -1,0 +1,81 @@
+@use '@/shared/styles/core' as *;
+
+.c-directional-button {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+
+  svg {
+    height: 100%;
+    vertical-align: top;
+  }
+
+  &--down {
+    .rotation-wrapper {
+      transform: rotate(180deg);
+    }
+  }
+
+  &--left {
+    .rotation-wrapper {
+      transform: rotate(-90deg);
+    }
+  }
+
+  &--right {
+    .rotation-wrapper {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.rotation-wrapper {
+  display: inline-block;
+  width: 100%;
+}
+
+.recess {
+  fill: #222;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.button {
+  @include button-reset();
+  position: absolute;
+  inset: 0;
+  padding: 4%;
+  transition: 0.1s transform ease-in-out;
+
+  &--pressed {
+    transform: scale(0.85);
+
+    .button-icon {
+      fill: #fff;
+    }
+  }
+}
+
+.button-background,
+.button-shimmer,
+.button-highlight {
+  fill-rule: evenodd;
+}
+
+.button-highlight {
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+}
+
+.button-background {
+  fill: #3c4649;
+}
+
+.button-icon {
+  fill: #eaeaea;
+}
+
+.button-shimmer {
+  opacity: 0;
+}

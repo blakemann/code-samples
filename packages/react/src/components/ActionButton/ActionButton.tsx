@@ -14,6 +14,8 @@ interface Props {
   onReleased: () => void | undefined,
 }
 
+let shimmerTimeline:GSAPTimeline|null = null;
+
 export default function ActionButton(props:Props) {
   // state
 
@@ -26,11 +28,10 @@ export default function ActionButton(props:Props) {
   });
 
   const shimmer = useRef<HTMLSpanElement|null>(null);
-  let shimmerTimeline:GSAPTimeline|null = null;
 
   // effects
 
-  const onRelease = useCallback(() => {
+  const onRelease = useCallback(():void => {
     // update internal state
     setIsDown(false);
     // emit event
