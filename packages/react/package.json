@@ -12,12 +12,14 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "classnames": "^2.5.1",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "*",
+    "gsap": "*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vite": "*",
-    "vite-svg-loader": "*"
+    "vite-plugin-svgr": "^4.3.0"
   }
 }

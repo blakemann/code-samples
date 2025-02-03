@@ -22,7 +22,7 @@
       "@/vue/utilities/*": ["./packages/vue/src/utilities/*"],
       "@/react/assets/*": ["./packages/react/src/assets/*"],
       "@/react/components/*": ["./packages/react/src/components/*"],
-      "@/react/composables": ["./packages/react/src/composables"],
+      "@/react/hooks": ["./packages/react/src/hooks"],
       "@/react/styles": ["./packages/react/src/styles"],
       "@/react/utilities/*": ["./packages/react/src/utilities/*"]
     }
