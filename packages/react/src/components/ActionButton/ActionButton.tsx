@@ -13,8 +13,6 @@ interface Props {
   onReleased?: () => void | undefined,
 }
 
-let shimmerTimeline:GSAPTimeline|null = null;
-
 export default function ActionButton({ label, color, children, onPressed, onReleased }:PropsWithChildren<Props>) {
   // state
 
@@ -26,7 +24,10 @@ export default function ActionButton({ label, color, children, onPressed, onRele
     [styles['button--pressed']]: isDown,
   });
 
+  // data
+
   const shimmer = useRef<HTMLSpanElement|null>(null);
+  const shimmerTimeline = useRef<GSAPTimeline|null>(null);
 
   // effects
 
@@ -48,13 +49,13 @@ export default function ActionButton({ label, color, children, onPressed, onRele
     onPressed?.();
     // animate
     if (shimmer.current) {
-      if (shimmerTimeline) {
-        shimmerTimeline.kill();
+      if (shimmerTimeline.current) {
+        shimmerTimeline.current.kill();
       }
-      shimmerTimeline = gsap.timeline();
-      shimmerTimeline.to(shimmer.current, { opacity: 1, duration: 0.1, ease: 'power1.easeIn' });
-      shimmerTimeline.to(shimmer.current, { opacity: 0, duration: 0.5, ease: 'power1.easeOut' });
-      shimmerTimeline.fromTo(shimmer.current, { scale: 0 }, { scale: 1, duration: 0.5, ease: 'power1.easeIn' }, 0);
+      shimmerTimeline.current = gsap.timeline();
+      shimmerTimeline.current.to(shimmer.current, { opacity: 1, duration: 0.1, ease: 'power1.easeIn' });
+      shimmerTimeline.current.to(shimmer.current, { opacity: 0, duration: 0.5, ease: 'power1.easeOut' });
+      shimmerTimeline.current.fromTo(shimmer.current, { scale: 0 }, { scale: 1, duration: 0.5, ease: 'power1.easeIn' }, 0);
     }
   }
 

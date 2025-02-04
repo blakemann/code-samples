@@ -254,7 +254,7 @@
 
   function formatStickData({ angle, force }:StickInput):StickInput {
     // return stick input data adjusted for display requirements
-    let shiftedAngle:number = angle + 90;
+    const shiftedAngle:number = angle + 90;
     return {
       angle: (shiftedAngle < 0) ? Math.round(180 + (180 + shiftedAngle)) : Math.round(shiftedAngle),
       force: Math.round(force * 100),
@@ -273,7 +273,7 @@
     gsap.to(container.value, { rotateY: 0, x: 0, y: 0, scale: 1, duration: 0.15, ease: 'power1.inOut' });
   }
 
-  function onUpdateMuted(value:Input):void {
+  function onUpdateMuted(value:boolean):void {
     emit(ComponentEvent.Input, value ? Input.MUTE : Input.UNMUTE);
   }
 </script>

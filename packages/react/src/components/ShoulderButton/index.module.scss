@@ -1,0 +1,15 @@
+@use '@/shared/styles/core' as *;
+
+.c-shoulder-button {
+  @include button-reset();
+
+  &--side-right {
+    .graphic {
+      transform: scaleX(-100%);
+    }
+  }
+}
+
+.graphic {
+  width: 100%;
+}

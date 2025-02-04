@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useGlobalRelease } from '@/react/hooks';
 import styles from './index.module.scss';
 import { ButtonSide } from './types';
@@ -11,8 +11,6 @@ interface Props {
   onPressed?: () => void | undefined,
   onReleased?: () => void | undefined,
 }
-
-let lightingTimeout:ReturnType<typeof setTimeout>|null = null;
 
 export default function MenuButton({ label, side, children, onPressed, onReleased }:PropsWithChildren<Props>) {
   // state
@@ -30,6 +28,10 @@ export default function MenuButton({ label, side, children, onPressed, onRelease
     [styles.button]: true,
     [styles['button--pressed']]: isDown,
   });
+
+  // data
+
+  const lightingTimeout = useRef<ReturnType<typeof setTimeout>|null>(null);
 
   // effects
 
@@ -51,11 +53,11 @@ export default function MenuButton({ label, side, children, onPressed, onRelease
     // emit event
     onPressed?.();
     // clear existing timeout if applicable
-    if (lightingTimeout) {
-      clearTimeout(lightingTimeout);
+    if (lightingTimeout.current) {
+      clearTimeout(lightingTimeout.current);
     }
     // set timeout to turn off recess lighting
-    lightingTimeout = setTimeout((): void => {
+    lightingTimeout.current = setTimeout((): void => {
       setRecessLit(false);
     }, 250);
   }

@@ -1,0 +1,37 @@
+@use 'sass:color';
+@use '@/shared/styles/core' as *;
+
+.c-playstation-button {
+  width: 100%;
+  line-height: 0;
+
+  svg {
+    vertical-align: top;
+  }
+}
+
+.recess {
+  position: relative;
+
+  .recess-graphic {
+    fill: #222;
+    transition: 0.2s fill ease-in-out;
+  }
+}
+
+.button {
+  @include button-reset();
+  position: absolute;
+  inset: 9% 6%;
+  transition: 0.1s transform ease-in-out;
+
+  .shimmer {
+    position: absolute;
+    inset: 0;
+    fill: #fff;
+  }
+
+  &--pressed {
+    transform: scale(0.9);
+  }
+}

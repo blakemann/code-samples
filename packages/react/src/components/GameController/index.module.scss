@@ -1,0 +1,151 @@
+.c-game-controller {
+  perspective: 600px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container {
+  position: relative;
+}
+
+.controller-body {
+  position: relative;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.touch-pad {
+  width: 34%;
+  position: absolute;
+  top: -1%;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 5px 3px rgba(0, 0, 0, 0.5));
+  z-index: 110;
+}
+
+.shoulder-button {
+  $h-offset: 17%;
+  $v-offset: -1.8%;
+
+  width: 12%;
+  position: absolute;
+  top: $v-offset;
+  z-index: 90;
+
+  &--left {
+    left: $h-offset;
+  }
+
+  &--right {
+    right: $h-offset;
+  }
+}
+
+.analog-stick {
+  $h-offset: 31.8%;
+  $v-offset: 36.6%;
+
+  width: 9.8%;
+  position: absolute;
+  top: $v-offset;
+  z-index: 110;
+
+  &--left {
+    left: $h-offset;
+  }
+
+  &--right {
+    right: $h-offset;
+  }
+}
+
+.action-button {
+  width: 5.75%;
+  position: absolute;
+  z-index: 110;
+
+  &--triangle {
+    top: 11%;
+    right: 20%;
+  }
+
+  &--circle {
+    top: 20.5%;
+    right: 14%;
+  }
+
+  &--cross {
+    top: 30.75%;
+    right: 20%;
+  }
+
+  &--square {
+    top: 20.5%;
+    right: 26%;
+  }
+}
+
+.directional-button {
+  width: 5.3%;
+  position: absolute;
+  z-index: 110;
+
+  &--up {
+    top: 13%;
+    left: 21%;
+  }
+
+  &--down {
+    top: 28%;
+    left: 21%;
+  }
+
+  &--left {
+    top: 20.3%;
+    left: 16.5%;
+  }
+
+  &--right {
+    top: 20.3%;
+    left: 25.5%;
+  }
+}
+
+.menu-button {
+  $h-offset: 28.5%;
+
+  width: 2.5%;
+  position: absolute;
+  z-index: 110;
+  top: 4%;
+
+  &--share {
+    left: $h-offset;
+  }
+
+  &--options {
+    right: $h-offset;
+  }
+}
+
+.playstation-button {
+  width: 5%;
+  position: absolute;
+  z-index: 110;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mute-button {
+  width: 4%;
+  position: absolute;
+  z-index: 110;
+  top: 51%;
+  left: 50%;
+  transform: translateX(-50%);
+}

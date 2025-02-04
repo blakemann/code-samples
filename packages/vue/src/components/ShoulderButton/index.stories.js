@@ -13,7 +13,7 @@ const render = (args) => ({
     return { args };
   },
   template: `
-    <div style="position: absolute;">
+    <div style="position: relative;">
       <ShoulderButton v-bind="args" style="width: 150px; max-width: 100%;" />
       <!-- render a guide line to represent controller body -->
       <span style="position: absolute; top: 65%; left: -20%; right: -20%; border-top: 1px dashed #000; transform: rotate(${args.side === 'left' ? '-11deg' : '11deg'});" />
