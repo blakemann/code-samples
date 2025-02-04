@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { gsap } from 'gsap';
-import { Color } from './types';
 import type { PropsWithChildren } from 'react';
 import { useState, useRef, useCallback } from 'react';
+import { Color } from './types';
 import styles from './index.module.scss';
 import { useGlobalRelease } from '@/react/hooks';
 

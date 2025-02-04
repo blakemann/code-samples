@@ -8,7 +8,7 @@ export default {
     <div style={{ width: '300px', maxWidth: '100%' }}>
       <LogItem {...args} />
     </div>
-  )
+  ),
 };
 
 export const Triangle = {

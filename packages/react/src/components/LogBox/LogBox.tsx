@@ -1,11 +1,11 @@
 import { gsap } from 'gsap';
 import { Transition, TransitionGroup } from 'react-transition-group';
-import IconCross from '@/shared/assets/action-cross.svg?react';
-import LogItem from '@/react/components/LogItem';
-import {useMemo, useRef, createRef, RefObject} from 'react';
+import { useMemo, useRef, createRef, RefObject } from 'react';
 import type { ReactNode } from 'react';
 import styles from './index.module.scss';
 import { LogEntry } from './types';
+import LogItem from '@/react/components/LogItem';
+import IconCross from '@/shared/assets/action-cross.svg?react';
 
 type TransitionGroupType = InstanceType<typeof TransitionGroup>;
 

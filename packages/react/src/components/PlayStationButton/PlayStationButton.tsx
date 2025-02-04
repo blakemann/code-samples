@@ -1,11 +1,11 @@
 import { gsap } from 'gsap';
 import { uniqueId } from 'lodash-es';
 import classNames from 'classnames';
+import { useState, useCallback, useRef } from 'react';
 import RecessGraphic from './assets/recess.svg?react';
 import PlayStationLogoGraphic from './assets/playstation-logo.svg?react';
-import { useState, useCallback, useRef } from 'react';
-import { useGlobalRelease } from '@/react/hooks';
 import styles from './index.module.scss';
+import { useGlobalRelease } from '@/react/hooks';
 
 type GradientStop = {
   offset: number,

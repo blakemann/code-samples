@@ -11,7 +11,7 @@ export default {
       {/* render a guide line to represent controller body */}
       <span style={{ position: 'absolute', top: '65%', left: '-20%', right: '-20%', borderTop: '1px dashed #000', transform: `rotate(${args.side === 'left' ? '-11deg' : '11deg'})` }} />
     </div>
-  )
+  ),
 };
 
 export const Left = {

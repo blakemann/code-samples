@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import { gsap } from 'gsap';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { useGlobalRelease } from '@/react/hooks';
-import type { Coord } from '@/shared/utilities/trigonometry';
-import { getAngle, getPointAlongAngle } from '@/shared/utilities/trigonometry';
 import styles from './index.module.scss';
 import graphicSrc from './assets/analog-stick.png?url';
 import graphicEdgeSrc from './assets/analog-stick-edge.png?url';
+import { useGlobalRelease } from '@/react/hooks';
+import type { Coord } from '@/shared/utilities/trigonometry';
+import { getAngle, getPointAlongAngle } from '@/shared/utilities/trigonometry';
 
 interface Props {
   angle: number,

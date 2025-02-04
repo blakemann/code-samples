@@ -12,7 +12,7 @@ export default {
         <div style={{ width: '150px', maxWidth: '100%', border: '1px dashed #000', borderRadius: '50%' }}>
           <AnalogStick {...args} force={force} angle={angle} onUpdateForce={setForce} onUpdateAngle={setAngle} />
         </div>
-      )
+      );
     },
   ],
 };

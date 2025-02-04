@@ -1,6 +1,7 @@
 import { gsap } from 'gsap';
 import type { ReactNode } from 'react';
 import { useState, useRef } from 'react';
+import styles from './index.module.scss';
 import type { Coord } from '@/shared/utilities/trigonometry';
 import type { LogItemData } from '@/react/components/LogItem';
 import { Input } from '@/shared/utilities/constants';
@@ -20,7 +21,6 @@ import MuteButton from '@/react/components/MuteButton';
 import PlayStationButton from '@/react/components/PlayStationButton';
 import ShoulderButton, { ShoulderButtonSide } from '@/react/components/ShoulderButton';
 import TouchPad from '@/react/components/TouchPad';
-import styles from './index.module.scss';
 
 enum ControllerSide {
   Left,
@@ -256,8 +256,14 @@ export default function GameController({ onInput, onUpdateInputData }:Props) {
           <AnalogStick
             angle={leftStickValue.angle}
             force={leftStickValue.force}
-            onUpdateAngle={(angle:number):void => { onStickMoved(ControllerSide.Left); setLeftStickValue((prev) => ({ ...prev, angle })) }}
-            onUpdateForce={(force:number):void => { onStickMoved(ControllerSide.Left); setLeftStickValue((prev) => ({ ...prev, force })) }}
+            onUpdateAngle={(angle:number):void => {
+              onStickMoved(ControllerSide.Left);
+              setLeftStickValue((prev) => ({ ...prev, angle }));
+            }}
+            onUpdateForce={(force:number):void => {
+              onStickMoved(ControllerSide.Left);
+              setLeftStickValue((prev) => ({ ...prev, force }));
+            }}
             onGrabbed={() => onStickGrabbed(ControllerSide.Left)}
             onReleased={() => onStickReleased(ControllerSide.Left)}
           />
@@ -266,8 +272,14 @@ export default function GameController({ onInput, onUpdateInputData }:Props) {
           <AnalogStick
             angle={rightStickValue.angle}
             force={rightStickValue.force}
-            onUpdateAngle={(angle:number):void => { onStickMoved(ControllerSide.Right); setRightStickValue((prev) => ({ ...prev, angle })) }}
-            onUpdateForce={(force:number):void => { onStickMoved(ControllerSide.Right); setRightStickValue((prev) => ({ ...prev, force })) }}
+            onUpdateAngle={(angle:number):void => {
+              onStickMoved(ControllerSide.Right);
+              setRightStickValue((prev) => ({ ...prev, angle }));
+            }}
+            onUpdateForce={(force:number):void => {
+              onStickMoved(ControllerSide.Right);
+              setRightStickValue((prev) => ({ ...prev, force }));
+            }}
             onGrabbed={() => onStickGrabbed(ControllerSide.Right)}
             onReleased={() => onStickReleased(ControllerSide.Right)}
           />

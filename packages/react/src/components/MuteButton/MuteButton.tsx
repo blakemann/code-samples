@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useState, useCallback } from 'react';
-import { useGlobalRelease } from '@/react/hooks';
 import styles from './index.module.scss';
+import { useGlobalRelease } from '@/react/hooks';
 
 interface Props {
   muted:boolean,

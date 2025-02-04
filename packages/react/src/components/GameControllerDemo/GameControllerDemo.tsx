@@ -1,11 +1,11 @@
 import { cloneDeep } from 'lodash-es';
 import { useState } from 'react';
+import styles from './index.module.scss';
 import type { Input } from '@/shared/utilities/constants';
 import GameController from '@/react/components/GameController';
 import LogBox from '@/react/components/LogBox';
 import type { LogEntry } from '@/react/components/LogBox';
 import type { LogItemData } from '@/react/components/LogItem';
-import styles from './index.module.scss';
 
 export default function GameControllerDemo() {
   // state

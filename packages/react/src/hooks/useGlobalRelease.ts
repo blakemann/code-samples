@@ -20,6 +20,6 @@ export default function useGlobalRelease(condition:boolean, callback:() => void)
     return () => {
       document.removeEventListener('mouseup', onRelease);
       document.removeEventListener('visibilitychange', onVisibilityChange);
-    }
+    };
   }, [condition, callback]);
 }

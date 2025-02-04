@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import { uniqueId } from 'lodash-es';
 import { gsap } from 'gsap';
-import { Direction } from './types';
 import type { ReactNode } from 'react';
 import { useState, useRef, useCallback } from 'react';
+import { Direction } from './types';
 import styles from './index.module.scss';
-import { useGlobalRelease } from '@/react/hooks';
 import GraphicRecess from './assets/recess.svg?react';
+import { useGlobalRelease } from '@/react/hooks';
 
 enum Orientation {
   Horizontal = 'horizontal',

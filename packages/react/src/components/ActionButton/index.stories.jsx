@@ -1,19 +1,15 @@
 import Icon from '@fortawesome/fontawesome-free/svgs/regular/face-smile.svg?react';
 import ActionButton, { ActionButtonColor } from './index';
 
-const icon = (
-  <Icon />
-);
-
 export default {
   title: 'Components/ActionButton',
   component: ActionButton,
   render: (args) => (
-  <div style={{ width: '50px', maxWidth: '100%' }}>
-    <ActionButton {...args}>
-      <Icon />
-    </ActionButton>
-  </div>
+    <div style={{ width: '50px', maxWidth: '100%' }}>
+      <ActionButton {...args}>
+        <Icon />
+      </ActionButton>
+    </div>
   ),
 };
 

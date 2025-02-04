@@ -1,5 +1,5 @@
-import MuteButton from './index';
 import { useState } from 'react';
+import MuteButton from './index';
 
 export default {
   title: 'Components/MuteButton',
@@ -11,7 +11,7 @@ export default {
         <div style={{ width: '50px', maxWidth: '100%' }}>
           <MuteButton muted={muted} onUpdateMuted={setIsMuted} />
         </div>
-      )
+      );
     },
   ],
 };

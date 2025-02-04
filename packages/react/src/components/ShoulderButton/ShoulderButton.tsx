@@ -1,9 +1,9 @@
 import { gsap } from 'gsap';
-import ShoulderButtonGraphic from './assets/shoulder-button.svg?react';
 import { useState, useCallback, useRef } from 'react';
-import { useGlobalRelease } from '@/react/hooks';
+import ShoulderButtonGraphic from './assets/shoulder-button.svg?react';
 import styles from './index.module.scss';
 import { ButtonSide } from './types';
+import { useGlobalRelease } from '@/react/hooks';
 
 type GraphicType = InstanceType<typeof ShoulderButtonGraphic>;
 

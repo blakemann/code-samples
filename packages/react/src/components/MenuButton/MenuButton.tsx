@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import { useState, useCallback, useRef } from 'react';
-import { useGlobalRelease } from '@/react/hooks';
 import styles from './index.module.scss';
 import { ButtonSide } from './types';
+import { useGlobalRelease } from '@/react/hooks';
 
 interface Props {
   label: string,

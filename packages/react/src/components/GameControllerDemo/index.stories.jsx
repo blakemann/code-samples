@@ -6,7 +6,7 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
-  render: (args) => <GameControllerDemo {...args} />
+  render: (args) => <GameControllerDemo {...args} />,
 };
 
 export const Primary = {};

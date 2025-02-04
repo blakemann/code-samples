@@ -25,6 +25,8 @@ export default defineConfigWithVueTs(
       '.coverage/*',
       '.github/*',
       '.vitest/*',
+      '**/vue-storybook-static/*',
+      '**/react-storybook-static/*',
       '**/storybook-static/*',
       '**/dist/*',
     ],
@@ -58,7 +60,7 @@ export default defineConfigWithVueTs(
   },
   // Custom
   {
-    files: ['**/*.{js,ts,mjs,cjs,vue}'],
+    files: ['**/*.{js,ts,jsx,tsx,mjs,cjs,vue}'],
     plugins: {
       '@typescript': tseslint.plugin,
     },
@@ -169,6 +171,8 @@ export default defineConfigWithVueTs(
         vue: 'always',
         json: 'always',
         svg: 'always',
+        jsx: 'never',
+        tsx: 'never',
       }],
       'import/no-extraneous-dependencies': [
         'error', { devDependencies: true },
@@ -190,6 +194,12 @@ export default defineConfigWithVueTs(
     files: ['**/*.vue'],
     rules: {
       '@stylistic/js/indent': 'off',
+    },
+  },
+  {
+    files: ['**/*.stories.jsx'],
+    rules: {
+      'vue/multi-word-component-names': 'off',
     },
   },
 );

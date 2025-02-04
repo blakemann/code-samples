@@ -7,7 +7,7 @@ export default {
     <div style={{ width: '400px', maxWidth: '100%' }}>
       <TouchPad {...args} />
     </div>
-  )
+  ),
 };
 
 export const Primary = {};

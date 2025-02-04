@@ -10,7 +10,7 @@ export default {
         <Icon />
       </MenuButton>
     </div>
-  )
+  ),
 };
 
 export const Left = {

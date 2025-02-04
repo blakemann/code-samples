@@ -5,6 +5,8 @@ import type { ReactNode } from 'react';
 import IconPS from './assets/ps-button.svg?react';
 import IconDirection from './assets/direction-button.svg?react';
 import IconAnalogStick from './assets/analog-stick.svg?react';
+import styles from './index.module.scss';
+import { LogItemData } from './types';
 import IconCircle from '@/shared/assets/action-circle.svg?react';
 import IconCross from '@/shared/assets/action-cross.svg?react';
 import IconSquare from '@/shared/assets/action-square.svg?react';
@@ -12,8 +14,6 @@ import IconTriangle from '@/shared/assets/action-triangle.svg?react';
 import IconOptions from '@/shared/assets/menu-options.svg?react';
 import IconShare from '@/shared/assets/menu-share.svg?react';
 import { Input } from '@/shared/utilities/constants';
-import styles from './index.module.scss';
-import { LogItemData } from './types';
 
 type SymbolData = {
   background: string|null,
