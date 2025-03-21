@@ -1,14 +1,41 @@
 @use 'sass:color';
 @use 'sass:map';
+@use '../../../packages/shared/src/styles/core' as *;
 
 :root {
 
   // Colors
 
-  --color-text: #212121;
-  --color-bg: #e1e1e6;
+  --color-text: #{$color-text};
+  --color-bg: #{$color-bg};
 
   // Typography
 
-  --font-family-primary: 'Outfit', sans-serif;
+  --font-family-primary: #{$font-family-monospace};
+
+  // Forms
+
+  --forms-font-size-label: #{map.get($font-sizes, extra-small)};
+  --forms-font-size-error: #{map.get($font-sizes, extra-small)};
+  --forms-font-size-description: #{map.get($font-sizes, extra-small)};
+  --forms-font-size-value: #{map.get($font-sizes, regular)};
+  --forms-font-size-character-count: #{map.get($font-sizes, extra-small)};
+
+  --forms-font-weight-label: #{map.get($font-weights, semibold)};
+  --forms-font-weight-error: #{map.get($font-weights, medium)};
+  --forms-font-weight-value: #{map.get($font-weights, medium)};
+  --forms-font-weight-character-count: #{map.get($font-weights, light)};
+  --forms-font-weight-character-count-error: #{map.get($font-weights, medium)};
+
+  --forms-color-error: #{map.get($colors, red)};
+  --forms-color-field-background: #{$color-form-field};
+  --forms-color-placeholder: #{rgba($color-text, 50%)};
+  --forms-color-shimmer: #{color.mix($color-form-field, $color-bg, 35%)};
+  --forms-color-focus-border: #{rgba($color-text, 0.5)};
+  --form-field-outline-color: #{$color-form-field};
+
+  --forms-field-border-radius: #{$border-radius-sm};
+
+  --forms-padding-vertical: #{spacing(0.6)};
+  --forms-padding-horizontal: #{spacing(1.25)};
 }

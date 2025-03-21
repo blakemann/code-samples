@@ -1,12 +1,97 @@
+@use 'sass:map';
+@use 'sass:color';
+@use 'functions' as *;
+@use 'variables' as *;
+
+/*
+Utilities
+ */
+
 @mixin button-reset() {
   font-family: inherit;
   font-weight: inherit;
-  font-size: inherit;
-  color: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
   appearance: none;
   background: none;
   border: 0;
   outline: none;
   cursor: pointer;
   padding: 0;
+}
+
+/*
+Forms
+ */
+
+@mixin form-field() {
+  width: 100%;
+  background: var(--forms-color-field-background);
+  border: 1px solid transparent;
+  transition: 0.2s border-color ease-in-out, 0.2s box-shadow ease-in-out;
+  outline: none;
+}
+
+@mixin form-field-focus() {
+  border-color: var(--forms-color-focus-border);
+  box-shadow: 0 0 0 3px var(--form-field-outline-color);
+}
+
+@mixin form-field-text() {
+  @include form-field;
+  font-family: var(--font-family-primary);
+  color: var(--color-text);
+  font-size: var(--forms-font-size-value);
+  font-weight: var(--forms-font-weight-value);
+  border-radius: var(--forms-field-border-radius);
+  padding: var(--forms-padding-vertical) var(--forms-padding-horizontal);
+  appearance: none;
+
+  &:focus {
+    @include form-field-focus;
+  }
+
+  &::placeholder {
+    color: var(--forms-color-placeholder);
+  }
+}
+
+@mixin form-char-count() {
+  font-size: var(--forms-font-size-character-count);
+  font-weight: var(--forms-font-weight-character-count);
+  white-space: nowrap;
+  margin-top: 0.2em;
+
+  &--over-limit {
+    color: var(--forms-color-error);
+    font-weight: var(--forms-font-weight-character-count-error);
+  }
+}
+
+@mixin form-field-shimmer() {
+  background-color: var(--forms-color-field-background);
+  border-radius: var(--forms-field-border-radius);
+  animation: 2s form-field-shimmer cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes form-field-shimmer {
+  0% { background: var(--forms-color-field-background); }
+  50% { background: var(--forms-color-shimmer); }
+  100% { background: var(--forms-color-field-background); }
+}
+
+@mixin form-field-shimmer-container() {
+  position: relative;
+
+  * {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    @include form-field-shimmer;
+  }
 }

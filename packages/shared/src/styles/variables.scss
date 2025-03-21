@@ -1,0 +1,55 @@
+@use 'sass:map';
+@use 'functions' as *;
+
+/*
+Colors
+ */
+
+$color-bg: #eeedf3;
+$color-text: #10052c;
+$color-form-field: #d5d2de;
+
+$colors: (
+  red: #ac0061,
+  orange: #d38325,
+);
+
+/*
+Typography
+ */
+
+$font-family-serif: 'Lora', serif;
+$font-family-sans-serif: 'Outfit', sans-serif;
+$font-family-monospace: 'JetBrains Mono', monospace;
+
+$font-sizes: (
+  extra-small: rems(12px),
+  small: rems(14px),
+  regular: rems(16px),
+  large: rems(18px),
+  extra-large: rems(20px),
+  headings: (
+    h1: rems(72px),
+    h2: rems(40px),
+    h3: rems(32px),
+    h4: rems(24px),
+    h5: rems(20px),
+  ),
+);
+
+$font-weights: (
+  light: 300,
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700
+);
+
+/*
+Sizing / Spacing
+ */
+
+$border-radius-sm: rems(5px);
+$border-radius-md: rems(10px);
+$border-radius-lg: rems(14px);
+$border-radius-xl: rems(20px);
