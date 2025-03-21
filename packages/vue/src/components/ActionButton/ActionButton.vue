@@ -105,7 +105,7 @@
   }
 
   .button {
-    @include button-reset();
+    @include button-reset;
     background: linear-gradient(0deg, #000, #ccc);
     border-radius: inherit;
     padding: 15%;
@@ -127,7 +127,7 @@
     :deep(svg) {
       width: 100%;
       height: 100%;
-      fill: currentColor;
+      fill: currentcolor;
       vertical-align: top;
       position: relative;
       z-index: 3;
@@ -141,7 +141,7 @@
       left: 11%;
       right: 11%;
       height: 57.5%;
-      background: linear-gradient(rgba(255, 255, 255, 0.4) 20%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(rgb(255 255 255 / 40%) 20%, rgb(255 255 255 / 0%) 100%);
       border-radius: inherit;
       z-index: 4;
     }

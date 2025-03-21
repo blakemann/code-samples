@@ -205,12 +205,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Outfit', sans-serif;
+      font-family: Outfit, sans-serif;
       font-weight: 800;
       font-size: 12px;
 
       :deep(svg) {
-        fill: currentColor;
+        fill: currentcolor;
         width: 60%;
         height: 60%;
       }
@@ -262,6 +262,7 @@
       .background {
         transform: rotate(180deg);
       }
+
       .icon::before {
         transform: rotate(180deg) translateY(-5px);
       }
@@ -271,6 +272,7 @@
       .background {
         transform: rotate(-90deg);
       }
+
       .icon::before {
         transform: rotate(-90deg) translateY(-5px);
       }
@@ -280,6 +282,7 @@
       .background {
         transform: rotate(90deg);
       }
+
       .icon::before {
         transform: rotate(90deg) translateY(-5px);
       }

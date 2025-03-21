@@ -166,13 +166,13 @@
 
     &--lit {
       .recess-graphic {
-        //fill: color.mix(#222, #fc0, 50%);
+        // fill: color.mix(#222, #fc0, 50%);
       }
     }
   }
 
   .button {
-    @include button-reset();
+    @include button-reset;
     position: absolute;
     inset: 9% 6%;
     transition: 0.1s transform ease-in-out;

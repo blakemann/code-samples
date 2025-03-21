@@ -114,7 +114,7 @@
       inset: 0;
       border-radius: inherit;
       background: linear-gradient(#fc0 0%, #f92ff7 50%, #3197ff 100%);
-      border: 1px solid rgba(0, 0, 0, 0.25);
+      border: 1px solid rgb(0 0 0 / 25%);
       opacity: 0;
       transition: 0.25s opacity ease-in-out;
     }
@@ -136,7 +136,7 @@
   }
 
   .button {
-    @include button-reset();
+    @include button-reset;
     background: linear-gradient(0deg, #8b8c96, #ccc);
     border-radius: inherit;
     position: relative;
@@ -156,7 +156,7 @@
 
     &--pressed {
       transform: scale(0.85, 0.88);
-      outline: 2px solid rgba(0, 0, 0, 0.25);
+      outline: 2px solid rgb(0 0 0 / 25%);
     }
   }
 </style>

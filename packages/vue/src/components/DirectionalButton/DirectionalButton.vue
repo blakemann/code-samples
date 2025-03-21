@@ -327,7 +327,7 @@
   }
 
   .button {
-    @include button-reset();
+    @include button-reset;
     position: absolute;
     inset: 0;
     padding: 4%;

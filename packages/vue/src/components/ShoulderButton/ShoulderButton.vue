@@ -74,7 +74,7 @@
   @use '@/shared/styles/core' as *;
 
   .c-shoulder-button {
-    @include button-reset();
+    @include button-reset;
 
     &--side-right {
       .graphic {

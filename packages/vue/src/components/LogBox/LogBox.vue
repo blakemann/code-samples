@@ -124,7 +124,7 @@
     border-radius: 6px;
     padding: 12px;
     position: relative;
-    filter: drop-shadow(0 5px 5px rgba(10, 0, 50, 0.125));
+    filter: drop-shadow(0 5px 5px rgb(10 0 50 / 12.5%));
 
     &::after {
       content: '';
@@ -191,7 +191,7 @@
   .log-items {
     display: flex;
     flex-direction: column;
-    //grid-gap: 4px;
+    // grid-gap: 4px;
     margin-top: 12px;
     overflow: hidden;
   }

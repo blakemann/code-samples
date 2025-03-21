@@ -15,7 +15,7 @@
 }
 
 .button {
-  @include button-reset();
+  @include button-reset;
   background: linear-gradient(0deg, rgba(#8b8c96, 0.75), rgba(#ccc, 0.75));
   border-radius: inherit;
   position: relative;

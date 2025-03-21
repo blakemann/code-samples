@@ -30,6 +30,8 @@ export default {
     'keyframe-selector-notation': 'percentage-unless-within-keyword-only-block',
     'number-max-precision': null,
     'no-descending-specificity': null,
+    'custom-property-empty-line-before': null,
+    'property-no-vendor-prefix': null,
     // scss
     'scss/at-rule-no-unknown': true,
     'scss/at-extend-no-missing-placeholder': true,
