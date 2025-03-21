@@ -57,8 +57,8 @@
   import { gsap } from 'gsap';
   import { computed, useTemplateRef, TransitionGroup } from 'vue';
   import type { Input } from '@/shared/utilities/constants';
-  import type { LogItemData } from '@/react/components/LogItem';
   import IconCross from '@/shared/assets/action-cross.svg';
+  import type { LogItemData } from '@/vue/components/controller/LogItem';
   import LogItem from '@/vue/components/controller/LogItem';
 
   type TransitionGroupType = InstanceType<typeof TransitionGroup>;
