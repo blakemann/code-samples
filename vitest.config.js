@@ -17,7 +17,7 @@ export default defineConfig({
         'packages/composables/index.js',
       ],
     },
-    reporters: ['html'],
+    reporters: ['html', 'default'],
     outputFile: './.vitest/index.html',
   },
 });

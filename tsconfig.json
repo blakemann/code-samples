@@ -14,7 +14,7 @@
       "node"
     ],
     "paths": {
-      "@/TestHarness": ["./build/vitest/TestHarness"],
+      "@/build/*": ["./build/*"],
       "@/vue/components/*": ["./packages/vue/src/components/*"],
       "@/vue/composables": ["./packages/vue/src/composables"],
       "@/react/components/*": ["./packages/react/src/components/*"],

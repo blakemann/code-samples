@@ -2,7 +2,7 @@ import { ref, provide } from 'vue';
 import InputText from './index';
 
 export default {
-  title: 'Forms/InputText',
+  title: 'Components/Form/InputText',
   component: InputText,
 };
 

@@ -90,6 +90,7 @@
   } = defineProps<Props>();
 
   const [model, { nullable }] = defineModel<string>({
+    default: '',
     set(value:string):string|null {
       return (value === '' && nullable) ? null : value;
     },

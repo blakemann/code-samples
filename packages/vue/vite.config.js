@@ -5,12 +5,15 @@ import svgLoader from 'vite-svg-loader';
 import tsconfig from '../../tsconfig.json';
 
 const aliases = Object.entries(tsconfig.compilerOptions.paths).map(([alias, [aliasPath]]) => {
-  const isVuePackage = (/@\/vue/).test(alias);
-  const pkg = isVuePackage ? 'vue' : 'shared';
-  const pkgPath = isVuePackage ? './' : '../shared/';
+  const packages = [
+    { name: 'vue', replace: './packages/vue', path: './' },
+    { name: 'shared', replace: './packages/shared', path: '../shared/' },
+    { name: 'build', replace: './build', path: '../../build/' },
+  ];
+  const pkg = packages.find(({ name }) => new RegExp(`@/${name}`).test(alias)) || { name: 'unknown', path: './' };
   return {
     find: new RegExp(alias.replace('/*', '/(.*)')),
-    replacement: path.resolve(import.meta.dirname, aliasPath.replace(`./packages/${pkg}/`, pkgPath).replace('/*', '/$1')),
+    replacement: path.resolve(import.meta.dirname, aliasPath.replace(pkg.replace, pkg.path).replace('/*', '/$1')),
   };
 });
 
