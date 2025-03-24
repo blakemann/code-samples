@@ -1,5 +1,5 @@
 <template>
-  <div class="c-profile-card">
+  <div class="profile-card">
     <h2 class="heading">
       User Profile
     </h2>
@@ -47,7 +47,7 @@
   @use 'sass:map';
   @use '@/shared/styles/core' as *;
 
-  .c-profile-card {
+  .profile-card {
     background: #fff;
     border-radius: 6px;
     position: relative;

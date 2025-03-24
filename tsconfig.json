@@ -18,6 +18,8 @@
       "@/vue/components/*": ["./packages/vue/src/components/*"],
       "@/vue/composables": ["./packages/vue/src/composables"],
       "@/react/components/*": ["./packages/react/src/components/*"],
+      "@/react/contexts": ["./packages/react/src/contexts.ts"],
+      "@/react/utilities": ["./packages/react/src/utilities"],
       "@/react/hooks": ["./packages/react/src/hooks"],
       "@/shared/assets/*": ["./packages/shared/src/assets/*"],
       "@/shared/styles": ["./packages/shared/src/styles"],

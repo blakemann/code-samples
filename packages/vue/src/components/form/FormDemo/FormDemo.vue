@@ -1,5 +1,5 @@
 <template>
-  <div class="c-form-demo">
+  <div class="form-demo">
     <h1>Form Demo</h1>
     <div class="demo-content">
       <div class="fields">
@@ -27,7 +27,7 @@
 
 <script lang="ts">
   import { ref } from 'vue';
-  import InputText, { InputTextType } from '@/vue/components/form/InputText';
+  import InputText from '@/vue/components/form/InputText';
   import InputNumber from '@/vue/components/form/InputNumber';
   import ProfileCard from '@/vue/components/form/ProfileCard';
 </script>
@@ -43,12 +43,12 @@
   @use 'sass:map';
   @use '@/shared/styles/core' as *;
 
-  .c-form-demo {
+  .form-demo {
     min-height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 40px 100px;
+    padding: 100px 40px;
   }
 
   h1 {

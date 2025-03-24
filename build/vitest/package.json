@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
+    "@testing-library/react": "*",
     "@vue/test-utils": "*",
     "lodash-es": "*",
     "vitest": "*"

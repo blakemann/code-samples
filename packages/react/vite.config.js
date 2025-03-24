@@ -2,16 +2,18 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import svgLoader from 'vite-plugin-svgr';
-
 import tsconfig from '../../tsconfig.json';
 
 const aliases = Object.entries(tsconfig.compilerOptions.paths).map(([alias, [aliasPath]]) => {
-  const isReactPackage = (/@\/react/).test(alias);
-  const pkg = isReactPackage ? 'react' : 'shared';
-  const pkgPath = isReactPackage ? './' : '../shared/';
+  const packages = [
+    { name: 'react', replace: './packages/react', path: './' },
+    { name: 'shared', replace: './packages/shared', path: '../shared/' },
+    { name: 'build', replace: './build', path: '../../build/' },
+  ];
+  const pkg = packages.find(({ name }) => new RegExp(`@/${name}`).test(alias)) || { name: 'unknown', path: './' };
   return {
     find: new RegExp(alias.replace('/*', '/(.*)')),
-    replacement: path.resolve(import.meta.dirname, aliasPath.replace(`./packages/${pkg}/`, pkgPath).replace('/*', '/$1')),
+    replacement: path.resolve(import.meta.dirname, aliasPath.replace(pkg.replace, pkg.path).replace('/*', '/$1')),
   };
 });
 
@@ -54,6 +56,7 @@ export default defineConfig({
     environment: 'happy-dom',
     setupFiles: [
       '../../build/vitest/vi.assertions.js',
+      './tests/setup.js',
     ],
   },
 });

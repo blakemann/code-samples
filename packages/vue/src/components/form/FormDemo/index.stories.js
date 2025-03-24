@@ -1,3 +1,4 @@
+import { provide, ref } from 'vue';
 import FormDemo from './index';
 
 export default {
@@ -13,6 +14,9 @@ const render = (args) => ({
     FormDemo,
   },
   setup() {
+    if (args.loading) {
+      provide('ui:form:loading', ref(true));
+    }
     return { args };
   },
   template: `
@@ -22,4 +26,11 @@ const render = (args) => ({
 
 export const Primary = {
   render,
+};
+
+export const Loading = {
+  render,
+  args: {
+    loading: true,
+  },
 };

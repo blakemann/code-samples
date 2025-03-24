@@ -32,6 +32,7 @@ export default {
     'no-descending-specificity': null,
     'custom-property-empty-line-before': null,
     'property-no-vendor-prefix': null,
+    'media-feature-range-notation': 'prefix',
     // scss
     'scss/at-rule-no-unknown': true,
     'scss/at-extend-no-missing-placeholder': true,

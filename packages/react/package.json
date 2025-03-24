@@ -9,6 +9,9 @@
   "devDependencies": {
     "@eslint/js": "*",
     "@storybook/manager-api": "*",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "*",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react-swc": "^3.5.0",
@@ -21,7 +24,12 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-transition-group": "^4.4.5",
+    "storybook-react-context": "^0.7.0",
     "vite": "*",
-    "vite-plugin-svgr": "^4.3.0"
+    "vite-plugin-svgr": "^4.3.0",
+    "vitest": "*"
+  },
+  "peerDependencies": {
+    "@storybook/preview-api": "*"
   }
 }

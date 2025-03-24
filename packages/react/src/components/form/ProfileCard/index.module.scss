@@ -1,0 +1,35 @@
+@use 'sass:map';
+@use '@/shared/styles/core' as *;
+
+.profile-card {
+  background: #fff;
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 0 5px 5px rgb(10 0 50 / 12.5%);
+}
+
+.heading {
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+  padding: 12px;
+  border-bottom: 2px solid var(--color-bg);
+}
+
+.fields {
+  padding: 12px 12px 24px;
+}
+
+.field {
+  font-size: 11px;
+  padding-bottom: 4px;
+  border-bottom: 2px dotted var(--color-bg);
+
+  &-label {
+    margin: 0 0 4px;
+  }
+
+  &:not(:first-child) {
+    margin-top: 8px;
+  }
+}

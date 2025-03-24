@@ -1,0 +1,50 @@
+@use 'sass:map';
+@use '@/shared/styles/core' as *;
+
+.input-wrapper {
+  position: relative;
+  --step-button-width: 2rem;
+
+  &--loading {
+    @include form-field-shimmer-container;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+  }
+}
+
+.input {
+  @include form-field-text;
+
+  &--has-step-buttons {
+    padding-left: calc(var(--forms-padding-horizontal) + var(--step-button-width));
+    padding-right: calc(var(--forms-padding-horizontal) + var(--step-button-width));
+  }
+}
+
+.step-button {
+  @include button-reset;
+  width: var(--step-button-width);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  transition: 0.2s opacity ease-in-out;
+
+  svg {
+    width: 0.65em;
+  }
+
+  &--decrement {
+    left: 2px;
+  }
+
+  &--increment {
+    right: 2px;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 0.5;
+  }
+}
